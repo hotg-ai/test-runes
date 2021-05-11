@@ -1,0 +1,11 @@
+FROM runicos/base
+
+CAPABILITY<U8[3, 224, 224]> image IMAGE
+
+MODEL<U8[3, 224, 224],U8[965]> bird_detection ./lite-model_aiy_vision_classifier_birds_V1_3.tflite
+
+#PROC_BLOCK<U8[3],UTF8> label hotg-ai/rune#proc_blocks/ohv_label --labels=unknown,person_prob,not_person_prob
+
+OUT SERIAL
+
+RUN image bird_detection serial
