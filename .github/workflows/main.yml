@@ -9,7 +9,12 @@ on:
 jobs:
   check:
     name: Build all Runes
-    runes-on: ubuntu-18.04
+    strategy:
+      matrix:
+        include:
+           - os: ubuntu-18.04
+             nightly: https://github.com/hotg-ai/rune/releases/download/nightly/rune.x86_64-unknown-linux-gnu.zip
+    runes-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -27,7 +32,7 @@ jobs:
           rustc --version --verbose
       - name: Install latest Rune binary
         run: |
-          wget https://github.com/hotg-ai/rune/releases/download/nightly/rune.x86_64-unknown-linux-gnu.zip
+          wget ${{ matrix.nightly }}
           unzip rune.x86_64-unknown-linux-gnu.zip -d ${{ runner.temp }}
           chmod +x ${{ runner.temp }}/rune
           cp ${{ runner.temp }}/rune .
