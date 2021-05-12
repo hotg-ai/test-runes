@@ -30,7 +30,9 @@ jobs:
         run: wget https://raw.githubusercontent.com/hotg-ai/rune/master/rust-toolchain.toml
       - name: Setup Rust
         run: |
-          rustup self update
+          # We need to update rustup because the mac version is out of date and
+          # self-update is disabled. https://github.com/rust-lang/rustup/issues/2766
+          curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain none -y
           rustup show
           rustc --version --verbose
       - name: Install latest Rune binary
