@@ -56,7 +56,7 @@ jobs:
         run: fd Runefile --exec '${{ runner.temp }}/rune' build --debug '{}'
       - name: Move all runes
         run: |
-          mkdir -p runes
+          mkdir runes
           fd --glob '*.rune' --exec-batch mv -t runes/
       - name: Upload compiled runes as artifacts
         uses: actions/upload-artifact@v2
