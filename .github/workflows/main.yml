@@ -13,9 +13,9 @@ jobs:
       matrix:
         include:
           - os: ubuntu-18.04
-            nightly: https://github.com/hotg-ai/rune/releases/download/nightly/rune.x86_64-unknown-linux-gnu.zip
+            nightly: rune.x86_64-unknown-linux-gnu.zip
           - os: macos-latest
-            nightly: https://github.com/hotg-ai/rune/releases/download/nightly/rune.x86_64-apple-darwin.zip
+            nightly: rune.x86_64-apple-darwin.zip
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
@@ -35,7 +35,8 @@ jobs:
       - name: Install latest Rune binary
         run: |
           wget ${{ matrix.nightly }}
-          unzip rune.x86_64-unknown-linux-gnu.zip -d ${{ runner.temp }}
+          wget https://github.com/hotg-ai/rune/releases/download/nightly/${{ matrix.nightly }}
+          unzip ${{ matrix.nightly }} -d ${{ runner.temp }}
           chmod +x ${{ runner.temp }}/rune
           cp ${{ runner.temp }}/rune .
           ${{ runner.temp }}/rune version --verbose
