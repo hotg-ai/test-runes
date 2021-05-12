@@ -34,7 +34,6 @@ jobs:
           rustc --version --verbose
       - name: Install latest Rune binary
         run: |
-          wget ${{ matrix.nightly }}
           wget https://github.com/hotg-ai/rune/releases/download/nightly/${{ matrix.nightly }}
           unzip ${{ matrix.nightly }} -d ${{ runner.temp }}
           chmod +x ${{ runner.temp }}/rune
