@@ -50,5 +50,5 @@ jobs:
       - name: Upload compiled runes as artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: compiled-runes
+          name: compiled-runes-${{ matrix.os }}
           path: runes
