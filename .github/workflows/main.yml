@@ -39,14 +39,19 @@ jobs:
           chmod +x ${{ runner.temp }}/rune
           cp ${{ runner.temp }}/rune .
           ${{ runner.temp }}/rune version --verbose
+      - name: Install a cross-platform find utility
+        uses: actions-rs/install@v0.1
+        with:
+          crate: fd-find
+          version: latest
       - name: Delete all previous runes
-        run: find -name '*.rune' -delete
+        run: rm -f $(fd --glob '*.rune')
       - name: Build All Runes
-        run: find -name 'Runefile' -exec ${{ runner.temp }}/rune build --debug '{}' ';'
+        run: fd Runefile --exec '${{ runner.temp }}/rune' build --debug '{}'
       - name: Move all runes
         run: |
           mkdir -p runes
-          find -name '*.rune' -exec mv -t runes/ '{}' '+'
+          fd --glob '*.rune' --exec-batch mv -t runes/
       - name: Upload compiled runes as artifacts
         uses: actions/upload-artifact@v2
         with:
