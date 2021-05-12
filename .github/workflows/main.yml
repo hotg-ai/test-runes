@@ -58,7 +58,7 @@ jobs:
       - name: Move all runes
         run: |
           mkdir '${{ github.workspace }}/runes/'
-          fd --glob '*.rune' --exec mv '${{ github.workspace }}/runes/'
+          fd --glob '*.rune' --exec mv '{}' '${{ github.workspace }}/runes/'
       - name: Upload compiled runes as artifacts
         uses: actions/upload-artifact@v2
         with:
