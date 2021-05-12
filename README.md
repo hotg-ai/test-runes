@@ -17,6 +17,6 @@ $ cd bird_classification
 
 $ rune build Runefile # build as normal
 
-$ runed run ./data/bird_classification.rune  --capability=image:./data/cropped_alcedo_atthis.jpg
+$ runed run ./data/bird_classification.rune  --capability=image:./data/assets/cropped_alcedo_atthis.jpg
 
 ```
