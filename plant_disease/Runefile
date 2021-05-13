@@ -1,0 +1,11 @@
+FROM runicos/base
+
+CAPABILITY<U8[300, 300, 3]> image IMAGE
+
+MODEL<U8[300, 300, 3],U8[100]> plant_disease ./lite-model_disease-classification_1.tflite
+
+PROC_BLOCK<U8[16],UTF8> label hotg-ai/rune#proc_blocks/ohv_label --labels=tomato_healthy,tomato_Septoria_Leaf_Spot,Tomato_Bacterial_Spot,Tomato_Blight,Cabbage_Healthy,Tomato_Spider_Mite,Tomato_Leaf_Mold,Tomato_Yellow_Leaf_Curl_Virus,Soy_Frogeye_Leaf_Spot,Soy_Downy_Mildew,Maize_Ravi_Corn_Rust,Maize_Healthy,Maize_Grey_Leaf_Spot,Maize_Lethal_Necrosis,soy_healthy,Cabbage_Black_Rot
+
+OUT SERIAL
+
+RUN image plant_disease label serial
