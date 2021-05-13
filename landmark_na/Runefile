@@ -1,0 +1,12 @@
+FROM runicos/base
+
+CAPABILITY<U8[321, 321, 3]> image IMAGE
+
+MODEL<U8[321, 321, 3],F32[99424]> landmark ./landmark_na.tflite
+
+# PROC_BLOCK<F32[99424],UTF8> label hotg-ai/rune#proc_blocks/ohv_label --labels=
+
+OUT SERIAL
+
+# RUN image landmark label serial
+RUN image landmark serial
