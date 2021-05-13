@@ -1,0 +1,9 @@
+FROM runicos/base
+
+CAPABILITY<I16[16000]> audio SOUND --hz 16000 --sample-duration-ms 1024
+
+MODEL<I16[16000],I8[2,2]> model ./model.tflite
+
+OUT serial
+
+RUN audio model serial
