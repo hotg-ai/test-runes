@@ -1,9 +1,9 @@
 
 FROM runicos/base
 
-CAPABILITY<F32[1]> audio SOUND --hz 16000 --sample-duration-ms 960
+CAPABILITY<I16[2]> audio SOUND --hz 16000 --sample-duration-ms 960
 
-MODEL<F32[1],F32[521,1024,64]> model ./yamnet.tflite
+MODEL<I16[2],F32[521,1024,64]> model ./yamnet.tflite
 
 OUT serial
 
