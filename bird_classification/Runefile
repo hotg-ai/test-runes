@@ -1,6 +1,6 @@
 FROM runicos/base
 
-CAPABILITY<U8[3, 224, 224]> image IMAGE
+CAPABILITY<U8[3, 224, 224]> image IMAGE --width 224 --height 224 --pixel_format @PixelFormat::RGB
 
 MODEL<U8[3, 224, 224],U8[965]> bird_detection ./lite-model_aiy_vision_classifier_birds_V1_3.tflite
 
