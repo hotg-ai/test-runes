@@ -1,10 +1,10 @@
 FROM runicos/base
 
-CAPABILITY<U8[224, 224, 3]> image IMAGE --width 224 --height 224 --pixel_format @PixelFormat::RGB
+CAPABILITY<U8[3, 224, 224]> image IMAGE --width 224 --height 224 --pixel_format @PixelFormat::RGB
 
-#PROC_BLOCK<U8[224, 224, 3], F32[224, 224, 3]> normalize hotg-ai/rune#proc_blocks/normalize
+PROC_BLOCK<U8[3, 224, 224], F32[3, 224, 224]> normalize hotg-ai/rune#proc_blocks/image-normalization
 
-MODEL<F32[224, 224, 3],F32[1001]> mobilenet ./mobilenet_v2_1.0_224_1_default_1.tflite
+MODEL<F32[3, 224, 224],F32[1001]> mobilenet ./mobilenet_v2_1.0_224_1_default_1.tflite
 
 PROC_BLOCK<F32[1001], U32[3]> most_confident hotg-ai/rune#proc_blocks/most_confident_indices --count=3
 
@@ -12,5 +12,4 @@ PROC_BLOCK<U32[3],UTF8[3]> label hotg-ai/rune#proc_blocks/label --labels=backgro
 
 OUT SERIAL
 
-RUN image mobilenet most_confident label serial
-#RUN image normalize mobilenet most_confident label serial
+RUN image normalize mobilenet most_confident label serial
