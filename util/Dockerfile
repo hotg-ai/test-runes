@@ -4,6 +4,8 @@ WORKDIR /app
 
 RUN apt-get update -y
 
+RUN apt-get install parallel
+
 RUN apt-get install unzip
 
 RUN curl -L https://github.com/hotg-ai/rune/releases/download/nightly/rune.x86_64-unknown-linux-gnu.zip \
