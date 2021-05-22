@@ -20,3 +20,39 @@ $ rune build Runefile # build as normal
 $ runed run ./data/bird_classification.rune  --capability=image:./data/assets/cropped_alcedo_atthis.jpg
 
 ```
+
+## Building and Testing Runes
+
+Set aliases for building and testing runes. **Run the scripts inside the subdirectories (`image/`, `audio/`)**
+
+### Build
+
+```
+$ alias runeb="sh `pwd`/util/build.sh"
+
+$ cd image/
+
+$ runeb
+```
+
+### Test
+
+##### Image
+
+```console
+$ alias runei="sh `pwd`/util/test_image.sh"
+
+$ cd image/
+
+$ runei
+```
+
+##### Audio
+
+```console
+$ alias runea="sh `pwd`/util/test_audio.sh"
+
+$ cd audio/
+
+$ runea
+```
