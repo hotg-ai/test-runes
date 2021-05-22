@@ -23,7 +23,7 @@ $ runed run ./data/bird_classification.rune  --capability=image:./data/assets/cr
 
 ## Building and Testing Runes
 
-Set aliases for building and testing runes. **Run the scripts inside the subdirectories (`image/`, `audio/`)**
+Set aliases for building and testing runes from project's root directory. **Run the scripts inside the subdirectories (`image/`, `audio/`)**
 
 ### Build
 
