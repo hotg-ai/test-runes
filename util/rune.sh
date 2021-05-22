@@ -1,3 +1,5 @@
 #docker build . -t hotg/tester
 echo "Runing with cmd: $@"
-docker run -v `pwd`:/app/data -w /app  -i -t hotg/tester ./rune $@
+echo ""
+# docker run -v `pwd`:/app/data -w /app  -i -t hotg/tester ./rune $@
+docker run -v `pwd`:`pwd` -w `pwd` -i -t hotg/tester /app/rune $@
