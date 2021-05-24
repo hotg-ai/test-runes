@@ -1,0 +1,63 @@
+---
+image: runicos/base
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions:
+          - 300
+          - 300
+          - 3
+    args:
+      width: 300
+      height: 300
+      pixel_format: "@PixelFormat::RGB"
+  plant_disease:
+    model: "./lite-model_disease-classification_1.tflite"
+    inputs:
+      - image
+    outputs:
+      - type: U8
+        dimensions:
+          - 16
+  most_confident:
+    proc-block: "hotg-ai/rune#proc_blocks/most_confident_indices"
+    inputs:
+      - plant_disease
+    outputs:
+      - type: U32
+        dimensions:
+          - 1
+    args:
+      count: 1
+  label:
+    proc-block: "hotg-ai/rune#proc_blocks/label"
+    inputs:
+      - most_confident
+    outputs:
+      - type: UTF8
+        dimensions:
+          - 1
+    args:
+      labels:
+        - tomato_healthy
+        - tomato_Septoria_Leaf_Spot
+        - Tomato_Bacterial_Spot
+        - Tomato_Blight
+        - Cabbage_Healthy
+        - Tomato_Spider_Mite
+        - Tomato_Leaf_Mold
+        - Tomato_Yellow_Leaf_Curl_Virus
+        - Soy_Frogeye_Leaf_Spot
+        - Soy_Downy_Mildew
+        - Maize_Ravi_Corn_Rust
+        - Maize_Healthy
+        - Maize_Grey_Leaf_Spot
+        - Maize_Lethal_Necrosis
+        - soy_healthy
+        - Cabbage_Black_Rot
+  serial:
+    out: SERIAL
+    inputs:
+      - label

@@ -1,0 +1,23 @@
+---
+image: runicos/base
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions:
+          - 321
+          - 321
+          - 3
+  landmark:
+    model: "./landmark_na.tflite"
+    inputs:
+      - image
+    outputs:
+      - type: F32
+        dimensions:
+          - 99424
+  serial:
+    out: SERIAL
+    inputs:
+      - landmark
