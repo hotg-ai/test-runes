@@ -2147,3 +2147,4 @@ pipeline:
     out: SERIAL
     inputs:
       - label
+      - most_confident
