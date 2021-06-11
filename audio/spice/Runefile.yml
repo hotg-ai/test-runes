@@ -1,0 +1,25 @@
+version: "1"
+image: runicos/base
+pipeline:
+  audio:
+    capability: SOUND
+    outputs:
+      - type: I16
+        dimensions:
+          - 16000
+    args:
+      hz: 16000
+      sample-duration-ms: 1024
+  model:
+    model: "./model.tflite"
+    inputs:
+      - audio
+    outputs:
+      - type: I8
+        dimensions:
+          - 2
+          - 2
+  serial:
+    out: serial
+    inputs:
+      - model
