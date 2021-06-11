@@ -1,0 +1,65 @@
+version: "1"
+image: runicos/base
+pipeline:
+  audio:
+    capability: SOUND
+    outputs:
+      - type: I16
+        dimensions:
+          - 16000
+    args:
+      hz: 16000
+  fft:
+    proc-block: "hotg-ai/rune#proc_blocks/fft"
+    inputs:
+      - audio
+    outputs:
+      - type: U32
+        dimensions:
+          - 1960
+  noise_filtering:
+    proc-block: "hotg-ai/rune#proc_blocks/noise-filtering"
+    inputs:
+      - fft
+    outputs:
+      - type: I8
+        dimensions:
+          - 1960
+  model:
+    model: "./model.tflite"
+    inputs:
+      - noise_filtering
+    outputs:
+      - type: I8
+        dimensions:
+          - 6
+  most_confident:
+    proc-block: "hotg-ai/rune#proc_blocks/most_confident_indices"
+    inputs:
+      - model
+    outputs:
+      - type: U32
+        dimensions:
+          - 1
+    args:
+      count: 1
+  label:
+    proc-block: "hotg-ai/rune#proc_blocks/label"
+    inputs:
+      - most_confident
+    outputs:
+      - type: UTF8
+        dimensions:
+          - 1
+    args:
+      labels:
+        - silence
+        - unknown
+        - up
+        - down
+        - left
+        - right
+  serial:
+    out: serial
+    inputs:
+      - label
