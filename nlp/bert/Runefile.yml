@@ -6,14 +6,14 @@ pipeline:
     capability: RAW
     outputs:
       - type: u8
-        dimensions: [128]
+        dimensions: [1500]
     args:
       source: 0
   sentence_2:
     capability: RAW
     outputs:
       - type: u8
-        dimensions: [128]  
+        dimensions: [1500]  
     args:
       source: 1
   tokenizers:
@@ -28,60 +28,46 @@ pipeline:
         dimensions: [1,384]   # mask_ids
       - type: i32
         dimensions: [1,384]   # segments_ids
+      - type: u8
+        dimensions: [2500]   # tokens
 
   bert:
-    model: './mobilebert_qa.tflite'
+    model: './mobilebert_1_default_1.tflite'
     inputs:
       - tokenizers.0  # tokens_ids
       - tokenizers.1  # mask_ids
       - tokenizers.2  # segment_ids
     outputs:
       - type: f32
-        dimensions: [1,384]   # start_logits
-      - type: f32
         dimensions: [1,384]   # end_logits
-
-  softmax_start_logit:
-    proc-block: "./softmax"
-    inputs:
-      - bert.0
-    outputs:
       - type: f32
-        dimensions: [1,384]    # return start logits after applying softmax function over start logits
-
-  softmax_end_logit:
-    proc-block: "./softmax"
-    inputs:
-      - bert.1
-    outputs:
-      - type: f32
-        dimensions: [1,384]     # return start logits after applying softmax function over start logits
-
-  argmax_start_logit:
-    proc-block: "./argmax"
-    inputs:
-      - softmax_start_logit
-    outputs:
-      - type: u32
-        dimensions: [1]        # will return index of max value start logit element
+        dimensions: [1,384]   # start_logits 
 
   argmax_end_logit:
     proc-block: "./argmax"
     inputs:
-      - softmax_end_logit
+      - bert.0
     outputs:
       - type: u32
-        dimensions: [1]        # will return index of end value start logit element
+        dimensions: [1]        # will return index of max value end logit element
+
+  argmax_start_logit:
+    proc-block: "./argmax"
+    inputs:
+      - bert.1
+    outputs:
+      - type: u32
+        dimensions: [1]        # will return index of max start value logit element
 
   text_extractor:
     proc-block: "./text_extractor"  # will return part of the sentence as utf8 output
     inputs:
-      - tokenizers.0            # token_ids
+      - tokenizers.3            # token
       - argmax_start_logit
       - argmax_end_logit
     outputs: 
-      - type: i32
-        dimensions: [1,384]     # output will be variable
+      - type: UTF8
+        dimensions: [1]     # output will be variable
 
   serial:
     out: serial

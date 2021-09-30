@@ -12,7 +12,7 @@
 // limitations under the License.
 
 use anyhow::Result;
-use crate::vocab::base_vocab::Vocab;
+use crate::vocab::base_vocab::{swap_key_values,Vocab};
 use alloc::{collections::BTreeMap, string::String};
 use core::str::FromStr;
 use crate::alloc::string::ToString;
@@ -35,7 +35,9 @@ pub enum TokenError {
 #[derive(Debug, Clone)]
 pub struct BertVocab {
     pub values: BTreeMap<String, i64>,
+    pub indices: BTreeMap<i64, String>,
     pub special_value_indices: BTreeMap<String, i64>,
+    pub special_indices: BTreeMap<i64, String>,
 }
 
 impl BertVocab {
@@ -112,9 +114,14 @@ impl FromStr for BertVocab{
         let mask_value = BertVocab::MASK;
         BertVocab::_register_as_special_value(mask_value, &values, &mut special_value_indices).expect("Token index not found in vocabulary");
 
+        let indices = swap_key_values(&values);
+        let special_indices = swap_key_values(&special_value_indices);
+
         Ok(BertVocab {
             values,
+            indices,
             special_value_indices,
+            special_indices
         })
     }
 }
@@ -124,8 +131,16 @@ impl Vocab for BertVocab {
         &self.values
     }
 
+    fn indices(&self) -> &BTreeMap<i64, String> {
+        &self.indices
+    }
+
     fn special_values(&self) -> &BTreeMap<String, i64> {
         &self.special_value_indices
+    }
+
+    fn special_indices(&self) -> &BTreeMap<i64, String> {
+        &self.special_indices
     }
 
     fn token_to_id(&self, token: &str) -> i64 {
@@ -135,6 +150,11 @@ impl Vocab for BertVocab {
             &self.special_value_indices,
             "[UNK]"
         )
+    }
+    
+
+    fn id_to_token(&self, id: &i64) -> String {
+        self._id_to_token(id, &self.indices, &self.special_indices, "[UNK]")
     }
 }
 

@@ -13,7 +13,17 @@
 use anyhow::Result;
 use alloc::{collections::BTreeMap, string::String};
 use crate::alloc::string::ToString;
+use core::hash::Hash;
+use crate::alloc::borrow::ToOwned;
 
+pub(crate) fn swap_key_values<T: Clone, U: Hash + Eq + Copy + core::cmp::Ord>(
+    input_hashmap: &BTreeMap<T, U>,
+) -> BTreeMap<U, T> {
+    input_hashmap
+        .iter()
+        .map(|(key, &value)| (value, key.clone()))
+        .collect()
+}
 
 #[derive(Debug, Clone)]
 pub enum TokenError {
@@ -35,11 +45,13 @@ pub trait Vocab {
     fn values(&self) -> &BTreeMap<String, i64>;
 
     // Return the map of token IDs to strings
-    // fn indices(&self) -> &BTreeMap<i64, String>;
+    fn indices(&self) -> &BTreeMap<i64, String>;
 
     // Return the map of token strings to IDs
     fn special_values(&self) -> &BTreeMap<String, i64>;
 
+    ///Return the map of token IDs to strings for special values
+    fn special_indices(&self) -> &BTreeMap<i64, String>;
 
     /// Converts a token to an id, provided a `BTreeMap` of values, a `BTreeMap` of special values and
     /// the unknown value token string representation. This is not meant to be directly used, the method
@@ -101,6 +113,40 @@ pub trait Vocab {
         special_values.insert(String::from(token), token_id);
         Ok(())
     }
+
+    /// Converts an id to a token, provided a `HashMap` of values, a `HashMap` of special values and
+    /// the unknown value token string representation. This is not meant to be directly used, the method
+    /// `id_to_token` offers a more convenient interface for most vocabularies, but needs to be implemented
+    /// by the specific vocabulary.
+    ///
+    /// # Parameters
+    /// - id (`&i64`): token id to convert
+    /// - indices (`&HashMap<i64, String>`): mapping from tokens to ids
+    /// - special_indices (`&HashMap<i64, String>`): mapping from special tokens to ids
+    /// - unknown_value (`&str`): unknown token value
+    ///
+    /// # Returns
+    /// - `String`: token value for the index provided. If not found in the indices, returns the unknown token value
+
+    fn _id_to_token(
+        &self,
+        id: &i64,
+        values: &BTreeMap<i64, String>,
+        special_indices: &BTreeMap<i64, String>,
+        unknown_value: &str,
+    ) -> String {
+        match special_indices.get(id) {
+            Some(token) => token.clone(),
+            None => match values.get(id) {
+                Some(token) => token.clone(),
+                None => unknown_value.to_owned(),
+            },
+        }
+    }
+
+    /// # Returns
+    /// - `String`: token value for the index provided. If not found in the indices, returns the unknown token value
+    fn id_to_token(&self, id: &i64) -> String;
 
 }
 

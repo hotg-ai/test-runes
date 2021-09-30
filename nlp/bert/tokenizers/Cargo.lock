@@ -17,7 +17,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 [[package]]
 name = "hotg-rune-core"
 version = "0.7.1-dev"
-source = "git+https://github.com/hotg-ai/rune?tag=nightly#999c54f4232b65b444c1e29268bfeb12aa24a6cb"
+source = "git+https://github.com/hotg-ai/rune?rev=5e72105f781c41459259134ce93510ce71107f25#5e72105f781c41459259134ce93510ce71107f25"
 dependencies = [
  "log",
  "serde",
@@ -26,7 +26,7 @@ dependencies = [
 [[package]]
 name = "hotg-rune-proc-block-macros"
 version = "0.7.1-dev"
-source = "git+https://github.com/hotg-ai/rune?tag=nightly#999c54f4232b65b444c1e29268bfeb12aa24a6cb"
+source = "git+https://github.com/hotg-ai/rune?rev=5e72105f781c41459259134ce93510ce71107f25#5e72105f781c41459259134ce93510ce71107f25"
 dependencies = [
  "hotg-rune-core",
  "proc-macro2",
@@ -39,7 +39,7 @@ dependencies = [
 [[package]]
 name = "hotg-rune-proc-blocks"
 version = "0.7.1-dev"
-source = "git+https://github.com/hotg-ai/rune?tag=nightly#999c54f4232b65b444c1e29268bfeb12aa24a6cb"
+source = "git+https://github.com/hotg-ai/rune?rev=5e72105f781c41459259134ce93510ce71107f25#5e72105f781c41459259134ce93510ce71107f25"
 dependencies = [
  "hotg-rune-core",
  "hotg-rune-proc-block-macros",
