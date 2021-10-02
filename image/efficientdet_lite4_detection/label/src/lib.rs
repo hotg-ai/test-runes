@@ -27,6 +27,13 @@ use hotg_rune_proc_blocks::{ProcBlock, Transform};
 #[derive(Debug, Default, Clone, PartialEq, ProcBlock)]
 pub struct Label {
     labels: Vec<&'static str>,
+    label_numbering_strategy: Vec<&`static str>,
+
+}
+impl Default for Label {
+    fn default()-> Self {
+        Label::new()
+    }
 }
 
 impl<T> Transform<Tensor<T>> for Label
@@ -45,11 +52,23 @@ where
         //     ix.try_into()
         //         .expect("Unable to convert the index to a usize")
         // });
-
-        let indices = input
+        if self.label_numbering_strategy =="one-based indexing"{
+            let input = input
             .elements()
             .iter()
-            .copied()
+            .map(|x| (x - 1.0) as u32)
+            .collect::<Vec<u32>>();
+        }
+        else {
+            let input = input
+            .elements()
+            .iter()
+            .map(|x| x)
+            .collect::<Vec<u32>>();
+        }
+
+        let indices = input
+            .iter()
             .map(|ix| ix.try_into().expect("Unable to convert the index to a f64"));
 
         // Note: We use a more cumbersome match statement instead of unwrap()
