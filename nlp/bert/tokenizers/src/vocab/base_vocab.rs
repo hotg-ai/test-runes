@@ -9,12 +9,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-use anyhow::Result;
-use alloc::{collections::BTreeMap, string::String};
 use crate::alloc::string::ToString;
+use alloc::{collections::BTreeMap, string::String};
+use anyhow::Result;
 use core::hash::Hash;
-use crate::alloc::borrow::ToOwned;
 
 pub(crate) fn swap_key_values<T: Clone, U: Hash + Eq + Copy + core::cmp::Ord>(
     input_hashmap: &BTreeMap<T, U>,
@@ -27,9 +25,7 @@ pub(crate) fn swap_key_values<T: Clone, U: Hash + Eq + Copy + core::cmp::Ord>(
 
 #[derive(Debug, Clone)]
 pub enum TokenError {
-    TokenNotFound{
-        word: String,
-    },
+    TokenNotFound { word: String },
 }
 
 /// # Base Vocab trait
@@ -105,9 +101,9 @@ pub trait Vocab {
         let token_id = match values.get(token) {
             Some(index) => *index,
             None => {
-                return Err(
-                    TokenError::TokenNotFound{word:token.to_string()}
-                );
+                return Err(TokenError::TokenNotFound {
+                    word: token.to_string(),
+                });
             }
         };
         special_values.insert(String::from(token), token_id);
@@ -128,26 +124,23 @@ pub trait Vocab {
     /// # Returns
     /// - `String`: token value for the index provided. If not found in the indices, returns the unknown token value
 
-    fn _id_to_token(
+    fn _id_to_token<'a>(
         &self,
-        id: &i64,
-        values: &BTreeMap<i64, String>,
-        special_indices: &BTreeMap<i64, String>,
-        unknown_value: &str,
-    ) -> String {
-        match special_indices.get(id) {
-            Some(token) => token.clone(),
-            None => match values.get(id) {
-                Some(token) => token.clone(),
-                None => unknown_value.to_owned(),
-            },
-        }
+        id: i64,
+        values: &'a BTreeMap<i64, String>,
+        special_indices: &'a BTreeMap<i64, String>,
+        unknown_value: &'a str,
+    ) -> &'a str {
+        special_indices
+            .get(&id)
+            .or_else(|| values.get(&id))
+            .map(|s| s.as_str())
+            .unwrap_or(unknown_value)
     }
 
     /// # Returns
     /// - `String`: token value for the index provided. If not found in the indices, returns the unknown token value
-    fn id_to_token(&self, id: &i64) -> String;
-
+    fn id_to_token(&self, id: i64) -> &str;
 }
 
 //==============================

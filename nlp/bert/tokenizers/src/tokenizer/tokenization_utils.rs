@@ -12,20 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use anyhow::Result;
 use crate::tokenizer::base_tokenizer::{TokenIdsWithOffsets, TruncationStrategy};
 use crate::tokenizer::constants::{
-    ACCENT_MARKERS, ADDITIONAL_WHITESPACE_CHARS, CONTROL_CHARS,
-    PUNCTUATION_CHARS, WHITESPACE_CHARS,
+    ACCENT_MARKERS, ADDITIONAL_WHITESPACE_CHARS, CONTROL_CHARS, PUNCTUATION_CHARS, WHITESPACE_CHARS,
 };
-use unicode_normalization::char::decompose_canonical;
 use crate::vocab::{BertVocab, Vocab};
 use crate::{Mask, Offset, OffsetSize, Token, TokenRef};
+use alloc::prelude::v1::{String, ToOwned, Vec};
+use anyhow::Result;
 use core::borrow::BorrowMut;
 use core::char;
-use core::char::REPLACEMENT_CHARACTER;   // need to check if present in the
+use core::char::REPLACEMENT_CHARACTER; // need to check if present in the
 use core::cmp::min;
-use alloc::prelude::v1::{String, ToOwned, Vec};
+use unicode_normalization::char::decompose_canonical;
 
 ///Cleans text by removing control characters and normalizing whitespace
 pub fn clean_text(token: &mut Token, strict: bool) {
@@ -51,7 +50,6 @@ pub fn clean_text(token: &mut Token, strict: bool) {
     token.offset.begin = *token.reference_offsets.first().unwrap_or(&(0));
     token.offset.end = *token.reference_offsets.last().unwrap_or(&(0)) + 1;
 }
-
 
 ///Split a text on special tokens (like BOS/EOS/UNK markers), depending on the vocabulary
 pub fn split_on_special_tokens<'a>(token: TokenRef<'a>, vocab: &impl Vocab) -> Vec<TokenRef<'a>> {
@@ -254,7 +252,6 @@ where
     }
     tokens
 }
-
 
 /// Split a token on one or more substrings (given a substring test function)
 /// * token: The token to split
@@ -514,9 +511,7 @@ pub fn truncate_sequences(
                         overflow_offsets,
                     ))
                 } else {
-                    Err(
-                        "Combined sequence length too short for requested truncation amount"
-                    )
+                    Err("Combined sequence length too short for requested truncation amount")
                 }
             }
             TruncationStrategy::OnlyFirst => {
@@ -536,9 +531,7 @@ pub fn truncate_sequences(
                         overflow_offsets,
                     ))
                 } else {
-                    Err(
-                        "First sequence too short for first only truncation"
-                    )
+                    Err("First sequence too short for first only truncation")
                 }
             }
             TruncationStrategy::OnlySecond => {
@@ -558,14 +551,12 @@ pub fn truncate_sequences(
                         overflow_offsets,
                     ))
                 } else {
-                    Err(
-                        "Second sequence too short for second only truncation"
-                    )
+                    Err("Second sequence too short for second only truncation")
                 }
             }
-            TruncationStrategy::DoNotTruncate => Err(
-                "Truncation needed but no truncation requested"
-            ),
+            TruncationStrategy::DoNotTruncate => {
+                Err("Truncation needed but no truncation requested")
+            }
         }
     } else if token_ids_with_offsets_1.ids.len() >= num_tokens_to_remove {
         match truncation_strategy {
@@ -585,17 +576,15 @@ pub fn truncate_sequences(
                     overflow_offsets,
                 ))
             }
-            TruncationStrategy::OnlySecond => Err(
-                "Invalid truncation strategy for single sentence truncation"
-            ),
-            TruncationStrategy::DoNotTruncate => Err(
-                "Truncation needed but no truncation requested"
-            ),
+            TruncationStrategy::OnlySecond => {
+                Err("Invalid truncation strategy for single sentence truncation")
+            }
+            TruncationStrategy::DoNotTruncate => {
+                Err("Truncation needed but no truncation requested")
+            }
         }
     } else {
-        Err(
-            "First sequence too short for first only truncation"
-        )
+        Err("First sequence too short for first only truncation")
     }
 }
 
@@ -636,8 +625,6 @@ fn truncate_with_overflow(
     (overflow_tokens, overflow_offsets)
 }
 
-
-
 pub fn fix_mask(tokens: &mut Vec<Token>) {
     for i in 1..tokens.len() {
         if tokens[i].mask == Mask::Continuation && tokens[i - 1].mask == Mask::None {
@@ -647,9 +634,6 @@ pub fn fix_mask(tokens: &mut Vec<Token>) {
         }
     }
 }
-
-
-
 
 //==============================
 // Unit tests

@@ -1,0 +1,31 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1,320,320,3]
+    args:
+      height: 320
+      width: 320
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    inputs:
+    - image
+    outputs:
+    - type: f32
+      dimensions: [1, 320, 320, 3]
+  yolo:
+    model: "./yolo-v5-tflite_tflite_model_1.tflite"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1,6300,85]
+  serial:
+    out: SERIAL
+    inputs:
+      - yolo

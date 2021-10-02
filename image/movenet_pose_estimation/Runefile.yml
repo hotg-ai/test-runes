@@ -1,0 +1,31 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1,192,192,3]
+    args:
+      height: 192
+      width: 192
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    inputs:
+    - image
+    outputs:
+    - type: f32
+      dimensions: [1, 192, 192, 3]
+  pose:
+    model: "./movenet_singlepose_lightning_3.tflite"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1,1,17,3]
+  serial:
+    out: SERIAL
+    inputs:
+      - pose

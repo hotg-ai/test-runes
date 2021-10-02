@@ -19,10 +19,8 @@
 //! - BERT
 //! Vocabulary implement the `Vocab` trait exposing a standard interface for integration with
 
-
 pub(crate) mod base_vocab;
 pub mod bert_vocab;
 
-pub use base_vocab:: Vocab;
+pub use base_vocab::Vocab;
 pub use bert_vocab::BertVocab;
-

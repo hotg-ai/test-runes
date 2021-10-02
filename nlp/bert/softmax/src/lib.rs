@@ -26,7 +26,7 @@ impl Transform<Tensor<f32>> for Softmax {
     fn transform(&mut self, input: Tensor<f32>) -> Tensor<f32> {
         let b = input.map(|_, &x| expf(x as f32));
         let sum: f32 = b.elements().iter().sum();
-       
+
         b.map(|_, &x| x / sum)
     }
 }

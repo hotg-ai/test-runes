@@ -11,18 +11,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use anyhow::Result;
-use crate::vocab::base_vocab::{swap_key_values,Vocab};
-use alloc::{collections::BTreeMap, string::String};
-use core::str::FromStr;
 use crate::alloc::string::ToString;
-
+use crate::vocab::base_vocab::{swap_key_values, Vocab};
+use alloc::{collections::BTreeMap, string::String};
+use anyhow::Result;
+use core::str::FromStr;
 
 #[derive(Debug, Clone)]
 pub enum TokenError {
-    TokenNotFound{
-        word: String,
-    },
+    TokenNotFound { word: String },
 }
 /// # BERT Vocab
 /// Vocabulary for BERT tokenizer. Contains the following special values:
@@ -74,17 +71,15 @@ pub enum ParseError {
     },
 }
 
-impl FromStr for BertVocab{
+impl FromStr for BertVocab {
     type Err = ParseError;
 
     fn from_str(dictionary: &str) -> Result<Self, ParseError> {
-        
         let mut values = BTreeMap::new();
         let mut next_index = 0;
 
         for line in dictionary.lines() {
             let word = line.trim();
-
 
             if let Some(original_index) = values.insert(word.to_string(), next_index) {
                 return Err(ParseError::DuplicateWord {
@@ -100,19 +95,24 @@ impl FromStr for BertVocab{
         let mut special_value_indices = BTreeMap::new();
 
         let unknown_value = BertVocab::UNKNOWN;
-        BertVocab::_register_as_special_value(unknown_value, &values, &mut special_value_indices).expect("Token index not found in vocabulary");
+        BertVocab::_register_as_special_value(unknown_value, &values, &mut special_value_indices)
+            .expect("Token index not found in vocabulary");
 
         let pad_value = BertVocab::PAD;
-        BertVocab::_register_as_special_value(pad_value, &values, &mut special_value_indices).expect("Token index not found in vocabulary");
+        BertVocab::_register_as_special_value(pad_value, &values, &mut special_value_indices)
+            .expect("Token index not found in vocabulary");
 
         let sep_value = BertVocab::SEPARATOR;
-        BertVocab::_register_as_special_value(sep_value, &values, &mut special_value_indices).expect("Token index not found in vocabulary");
+        BertVocab::_register_as_special_value(sep_value, &values, &mut special_value_indices)
+            .expect("Token index not found in vocabulary");
 
         let cls_value = BertVocab::CLS;
-        BertVocab::_register_as_special_value(cls_value, &values, &mut special_value_indices).expect("Token index not found in vocabulary");
+        BertVocab::_register_as_special_value(cls_value, &values, &mut special_value_indices)
+            .expect("Token index not found in vocabulary");
 
         let mask_value = BertVocab::MASK;
-        BertVocab::_register_as_special_value(mask_value, &values, &mut special_value_indices).expect("Token index not found in vocabulary");
+        BertVocab::_register_as_special_value(mask_value, &values, &mut special_value_indices)
+            .expect("Token index not found in vocabulary");
 
         let indices = swap_key_values(&values);
         let special_indices = swap_key_values(&special_value_indices);
@@ -121,7 +121,7 @@ impl FromStr for BertVocab{
             values,
             indices,
             special_value_indices,
-            special_indices
+            special_indices,
         })
     }
 }
@@ -144,16 +144,10 @@ impl Vocab for BertVocab {
     }
 
     fn token_to_id(&self, token: &str) -> i64 {
-        self._token_to_id(
-            token,
-            &self.values,
-            &self.special_value_indices,
-            "[UNK]"
-        )
+        self._token_to_id(token, &self.values, &self.special_value_indices, "[UNK]")
     }
-    
 
-    fn id_to_token(&self, id: &i64) -> String {
+    fn id_to_token(&self, id: i64) -> &str {
         self._id_to_token(id, &self.indices, &self.special_indices, "[UNK]")
     }
 }

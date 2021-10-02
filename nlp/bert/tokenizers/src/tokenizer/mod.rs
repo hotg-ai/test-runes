@@ -33,7 +33,6 @@
 //!
 //! All tokenizers are `Send`, `Sync` and support multi-threaded tokenization and encoding.
 
-
 pub(crate) mod base_tokenizer;
 pub mod bert_tokenizer;
 pub mod constants;
@@ -41,4 +40,3 @@ pub(crate) mod tokenization_utils;
 pub use base_tokenizer::{BaseTokenizer, MultiThreadedTokenizer, Tokenizer, TruncationStrategy};
 pub use bert_tokenizer::BertTokenizer;
 pub use tokenization_utils::truncate_sequences;
-

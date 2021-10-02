@@ -16,6 +16,7 @@ pipeline:
         dimensions: [1500]  
     args:
       source: 1
+
   tokenizers:
     proc-block: "./tokenizers"
     inputs:
@@ -23,13 +24,13 @@ pipeline:
       - sentence_2
     outputs:
       - type: i32
-        dimensions: [1,384]   # token_ids
+        dimensions: [1,384]   # token_ids/input_ids  ["101", "3035", ...] -> [S1, S2]
       - type: i32
-        dimensions: [1,384]   # mask_ids
+        dimensions: [1,384]   # mask_ids -> [1,1,1,1] -> [len(s1+s2), 0, 0 , 0]
       - type: i32
-        dimensions: [1,384]   # segments_ids
+        dimensions: [1,384]   # segments_ids -> [0,0,0,0, .., 1, 1, 1, ... 0000]
       - type: u8
-        dimensions: [2500]   # tokens
+        dimensions: [2500]   # tokens -> ["CLS", "Google", , Sunder,, Pichai, ...]
 
   bert:
     model: './mobilebert_1_default_1.tflite'
@@ -49,7 +50,7 @@ pipeline:
       - bert.0
     outputs:
       - type: u32
-        dimensions: [1]        # will return index of max value end logit element
+        dimensions: [1]        # will return max value index from end logit
 
   argmax_start_logit:
     proc-block: "./argmax"
@@ -57,7 +58,7 @@ pipeline:
       - bert.1
     outputs:
       - type: u32
-        dimensions: [1]        # will return index of max start value logit element
+        dimensions: [1]        # will return max value index from start logit
 
   text_extractor:
     proc-block: "./text_extractor"  # will return part of the sentence as utf8 output

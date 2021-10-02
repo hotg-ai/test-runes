@@ -31,7 +31,6 @@ pub struct BertTokenizer {
 }
 
 impl BertTokenizer {
-
     /// Create a new instance of a `BertTokenizer` from an existing vocabulary
     ///
     /// # Parameters
@@ -148,8 +147,8 @@ mod tests {
     use crate::vocab::base_vocab::swap_key_values;
     use crate::vocab::BertVocab;
     use crate::TokenizedInput;
-    use itertools::Itertools;
     use alloc::collections::BTreeMap;
+    use itertools::Itertools;
 
     fn generate_test_vocab() -> BertVocab {
         let values: BTreeMap<String, i64> = [

@@ -1,0 +1,32 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1,320,320,3]
+    args:
+      height: 320
+      width: 320
+      pixel-format: "@PixelFormat::RGB"
+  east_text_detector:
+    model: "./east-text-detector_fp16_1.tflite"
+    inputs:
+      - image
+    outputs:
+      outputs:
+      - type: f32
+        dimensions: [1,25, 4]
+      - type: f32
+        dimensions: [1,25]
+      - type: f32
+        dimensions: [1,25]
+      - type: f32
+        dimensions: [1]
+  serial:
+    out: SERIAL
+    inputs:
+      - east_text_detector.0
+      - east_text_detector.1
