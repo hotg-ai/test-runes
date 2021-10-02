@@ -7,5 +7,6 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+num = "0.4.0"
 hotg-rune-core = {git = "https://github.com/hotg-ai/rune", rev = '5e72105f781c41459259134ce93510ce71107f25' }
 hotg-rune-proc-blocks = {git = "https://github.com/hotg-ai/rune", rev = '5e72105f781c41459259134ce93510ce71107f25' }

@@ -4,19 +4,23 @@ extern crate alloc;
 use alloc::vec::Vec;
 use hotg_rune_core::{HasOutputs, Tensor};
 use hotg_rune_proc_blocks::{ProcBlock, Transform};
+use num::One;
 
 #[derive(Debug, Default, Clone, PartialEq, ProcBlock)]
 pub struct ZeroIndexing {}
 
-impl Transform<Tensor<f32>> for ZeroIndexing {
-    type Output = Tensor<u32>;
+impl<T> Transform<Tensor<T>> for ZeroIndexing
+where
+    T: One + core::ops::Sub<Output = T> + Copy,
+{
+    type Output = Tensor<T>;
 
-    fn transform(&mut self, input: Tensor<f32>) -> Self::Output {
+    fn transform(&mut self, input: Tensor<T>) -> Self::Output {
         let indices = input
             .elements()
             .iter()
-            .map(|x| (x - 1.0) as u32)
-            .collect::<Vec<u32>>();
+            .map(|&x| (x - T::one()))
+            .collect::<Vec<T>>();
 
         Tensor::new_vector(indices)
     }
@@ -32,7 +36,7 @@ mod tests {
 
     #[test]
     fn test_zero_indexing() {
-        let input = vec![2.0, 5.0, 7.0, 9.0, 11.0];
+        let input = vec![2, 5, 7, 9, 11];
         let input = Tensor::new_vector(input);
         let mut zero_indexing = ZeroIndexing::default();
         let output = zero_indexing.transform(input);
