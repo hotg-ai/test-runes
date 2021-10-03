@@ -39,7 +39,7 @@ pipeline:
       - type: UTF8
         dimensions: [3]
     args:
-      label_numbering_strategy: one-based indexing
+      class_index_numbering: one-based indexing
       labels:
         - person
         - bicycle

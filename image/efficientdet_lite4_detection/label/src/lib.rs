@@ -2,24 +2,27 @@
 
 extern crate alloc;
 
+use alloc::prelude::v1::Box;
 use alloc::vec;
 use alloc::vec::Vec;
 use core::{convert::TryInto, fmt::Debug};
 use hotg_rune_core::{HasOutputs, Tensor};
 use hotg_rune_proc_blocks::{ProcBlock, Transform};
+use itertools::Either;
 use num::One;
+use num::Zero;
 
 #[derive(Debug, Clone, PartialEq, ProcBlock)]
 pub struct Label {
     labels: Vec<&'static str>,
-    label_numbering_strategy: &'static str,
+    class_index_numbering: &'static str,
 }
 
 impl Label {
-    pub fn new(labels: Vec<&'static str>, label_numbering_strategy: &'static str) -> Self {
+    pub fn new(labels: Vec<&'static str>, class_index_numbering: &'static str) -> Self {
         Label {
             labels: labels,
-            label_numbering_strategy: label_numbering_strategy,
+            class_index_numbering: class_index_numbering,
         }
     }
 }
@@ -32,35 +35,37 @@ impl Default for Label {
 
 impl<T> Transform<Tensor<T>> for Label
 where
-    T: Copy + TryInto<f64> + One + core::ops::Sub<Output = T>,
+    T: Copy + TryInto<f64> + One + Zero + core::ops::Sub<Output = T>,
     <T as TryInto<f64>>::Error: Debug,
 {
     type Output = Tensor<&'static str>;
 
     fn transform(&mut self, input: Tensor<T>) -> Self::Output {
-        if self.label_numbering_strategy == "one-based indexing" {
-            let indices = input
-                .elements()
-                .iter()
-                .map(|&x| (x - T::one()))
-                .map(|ix| ix.try_into().expect("Unable to convert the index to a f64"));
+        let indices = if self.class_index_numbering == "one-based indexing" {
+            Either::Left(
+                input
+                    .elements()
+                    .iter()
+                    .map(|&x| (x - T::one()))
+                    .map(|ix| ix.try_into().expect("Unable to convert the index to a f64")),
+            )
         } else {
-            let indices = input
-                .elements()
-                .iter()
-                .map(|ix| ix.try_into().expect("Unable to convert the index to a f64"));
-        }
+            Either::Right(
+                input
+                    .elements()
+                    .iter()
+                    .map(|&x| (x))
+                    .map(|ix| ix.try_into().expect("Unable to convert the index to a f64")),
+            )
+        };
 
         // Note: We use a more cumbersome match statement instead of unwrap()
         // to provide the user with more useful error messages
+
         indices
             .map(|ix| match self.labels.get(ix as usize) {
                 Some(&label) => label,
-                None => panic!(
-                    "Index out of bounds: there are {} labels but label {} was requested",
-                    self.labels.len(),
-                    ix
-                ),
+                None => panic!("Index out of bounds: there are  labels but label was requested"),
             })
             .collect()
     }
@@ -95,22 +100,4 @@ mod tests {
 
         assert_eq!(got, should_be);
     }
-
-    // #[test]
-    //     #[should_panic]
-    //     fn only_works_with_1d_inputs() {
-    //         let mut proc_block = Label::default();
-
-    //         proc_block.set_output_dimensions(&[1, 2, 3]);
-    //     }
-
-    //     #[test]
-    //     #[should_panic = "Index out of bounds: there are 2 labels but label 42 was requested"]
-    //     fn label_index_out_of_bounds() {
-    //         let mut proc_block = Label::default();
-    //         proc_block.set_labels(["first", "second"]);
-    //         let input = Tensor::new_vector(alloc::vec![0_usize, 42]);
-
-    //         let _ = proc_block.transform(input);
-    //     }
 }

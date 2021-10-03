@@ -15,6 +15,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
+name = "either"
+version = "1.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457"
+
+[[package]]
 name = "hotg-rune-core"
 version = "0.7.1-dev"
 source = "git+https://github.com/hotg-ai/rune?rev=5e72105f781c41459259134ce93510ce71107f25#5e72105f781c41459259134ce93510ce71107f25"
@@ -47,6 +53,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "itertools"
+version = "0.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "69ddb889f9d0d08a67338271fa9b62996bc788c7796a5c18cf057420aaed5eaf"
+dependencies = [
+ "either",
+]
+
+[[package]]
 name = "itoa"
 version = "0.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -58,6 +73,7 @@ version = "0.7.1-dev"
 dependencies = [
  "hotg-rune-core",
  "hotg-rune-proc-blocks",
+ "itertools",
  "num",
 ]
 
