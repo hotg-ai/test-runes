@@ -1,0 +1,31 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1,400,400,3]
+    args:
+      height: 400
+      width: 400
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    inputs:
+    - image
+    outputs:
+    - type: f32
+      dimensions: [1, 400, 400, 3]
+  mirnet:
+    model: "./mirnet-fixed_fp16_1.tflite"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1,400,400,3]
+  serial:
+    out: SERIAL
+    inputs:
+      - mirnet

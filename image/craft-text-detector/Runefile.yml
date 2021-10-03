@@ -1,0 +1,33 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1,3,800,600]
+    args:
+      height: 800
+      width: 600
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    inputs:
+    - image
+    outputs:
+    - type: f32
+      dimensions: [1, 3, 800, 600]
+  text_detector:
+    model: "./craft-text-detector_float16_1.tflite"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1,400,300,2]
+      - type: f32
+        dimensions: [1,32,400,300]
+  serial:
+    out: SERIAL
+    inputs:
+      - text_detector

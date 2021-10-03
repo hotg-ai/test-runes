@@ -24,20 +24,13 @@ pipeline:
         dimensions: [1,25] #containing detection scores
       - type: f32
         dimensions: [1]  # number of objects detected -> will always return 25
-  # zero_indexing:
-  #   proc-block: "./zero_indexing"
-  #   inputs:
-  #     - efficientdet.1
-  #   outputs:
-  #     - type: U32
-  #       dimensions: [3]
   label:
     proc-block: "./label"
     inputs:
       - efficientdet.1
     outputs:
       - type: UTF8
-        dimensions: [3]
+        dimensions: [25]
     args:
       class_index_numbering: one-based indexing
       labels:

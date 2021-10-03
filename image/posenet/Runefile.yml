@@ -1,0 +1,37 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1,353,257,3]
+    args:
+      height: 353
+      width: 257
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    inputs:
+    - image
+    outputs:
+    - type: f32
+      dimensions: [1, 353, 257, 3]
+  pose:
+    model: "./posenet_mobilenet_float_075_1_default_1.tflite"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1,23,17,17]
+      - type: f32
+        dimensions: [1,23,17,34]
+      - type: f32
+        dimensions: [1,23,17,64]
+      - type: f32
+        dimensions: [1,23,17,1]
+  serial:
+    out: SERIAL
+    inputs:
+      - pose

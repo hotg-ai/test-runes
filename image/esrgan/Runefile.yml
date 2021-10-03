@@ -1,0 +1,31 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1,50,50,3]
+    args:
+      height: 50
+      width: 50
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    inputs:
+    - image
+    outputs:
+    - type: f32
+      dimensions: [1, 50, 50, 3]
+  light_enhancer:
+    model: "./esrgan-tf2_1.tflite"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1,200,200,3]
+  serial:
+    out: SERIAL
+    inputs:
+      - light_enhancer

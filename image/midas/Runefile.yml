@@ -1,0 +1,31 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1,256,256,3]
+    args:
+      height: 256
+      width: 256
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    inputs:
+    - image
+    outputs:
+    - type: f32
+      dimensions: [1, 256, 256, 3]
+  depth_estimation:
+    model: "./midas_v2_1_small_1_lite_1.tflite"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1,256,256,1]
+  serial:
+    out: SERIAL
+    inputs:
+      - depth_estimation
