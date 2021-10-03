@@ -19,8 +19,8 @@ where
         let indices = input
             .elements()
             .iter()
-            .map(|&x| (x - T::one()))
-            .collect::<Vec<T>>();
+            .map(|&x| (x - T::one()) as u32)
+            .collect::<Vec<u32>>();
 
         Tensor::new_vector(indices)
     }

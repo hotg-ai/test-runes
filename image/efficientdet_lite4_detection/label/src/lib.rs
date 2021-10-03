@@ -2,30 +2,12 @@
 
 extern crate alloc;
 
-use core::{convert::TryInto, fmt::Debug};
-use num::One;
 use alloc::vec;
 use alloc::vec::Vec;
+use core::{convert::TryInto, fmt::Debug};
 use hotg_rune_core::{HasOutputs, Tensor};
 use hotg_rune_proc_blocks::{ProcBlock, Transform};
-
-/// A proc block which, when given a set of indices, will return their
-/// associated labels.
-///
-/// # Examples
-/// ```rust
-/// # use label::Label;
-/// # use hotg_rune_core::Tensor;
-/// # use hotg_rune_proc_blocks::Transform;
-/// let mut proc_block = Label::default();
-/// proc_block.set_labels(["zero", "one", "two", "three"]);
-/// let input = Tensor::new_vector(vec![3, 1, 2]);
-///
-/// let got = proc_block.transform(input);
-///
-/// assert_eq!(got.elements(), &["three", "one", "two"]);
-/// ```
-
+use num::One;
 
 #[derive(Debug, Clone, PartialEq, ProcBlock)]
 pub struct Label {
@@ -34,17 +16,17 @@ pub struct Label {
 }
 
 impl Label {
-    pub fn new() -> Self {
-        Label { 
-            labels: vec![""],
-            label_numbering_strategy: "zero-based indexing"
+    pub fn new(labels: Vec<&'static str>, label_numbering_strategy: &'static str) -> Self {
+        Label {
+            labels: labels,
+            label_numbering_strategy: label_numbering_strategy,
         }
     }
 }
 
 impl Default for Label {
-    fn default()-> Self {
-        Label::new()
+    fn default() -> Self {
+        Label::new(vec![" "], "zero-based indexing")
     }
 }
 
@@ -56,27 +38,18 @@ where
     type Output = Tensor<&'static str>;
 
     fn transform(&mut self, input: Tensor<T>) -> Self::Output {
-
-        /// Checking for indexing
         if self.label_numbering_strategy == "one-based indexing" {
-            let input = input
-            .elements()
-            .iter()
-            .map(|&x| (x - T::one()))
-            .collect::<Vec<_>>();
+            let indices = input
+                .elements()
+                .iter()
+                .map(|&x| (x - T::one()))
+                .map(|ix| ix.try_into().expect("Unable to convert the index to a f64"));
+        } else {
+            let indices = input
+                .elements()
+                .iter()
+                .map(|ix| ix.try_into().expect("Unable to convert the index to a f64"));
         }
-        else {
-            let input = input
-            .elements()
-            .iter()
-            .map(|x| x)
-            .collect::<Vec<_>>();
-        }
-
-        /// converting T type to f64 type
-        let indices = input.elements()
-            .iter().copied()
-            .map(|ix| ix.try_into().expect("Unable to convert the index to a f64"));
 
         // Note: We use a more cumbersome match statement instead of unwrap()
         // to provide the user with more useful error messages
@@ -107,37 +80,37 @@ impl HasOutputs for Label {
     }
 }
 
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-//     #[test]
-//     #[should_panic]
-//     fn only_works_with_1d_inputs() {
-//         let mut proc_block = Label::default();
+    #[test]
+    fn get_the_correct_labels() {
+        let mut proc_block = Label::new(vec!["zero", "one", "two", "three"], "one-based indexing");
+        // proc_block.set_labels(["zero", "one", "two", "three"]);
+        let input = Tensor::new_vector(alloc::vec![3, 1, 2]);
+        let should_be = Tensor::new_vector(alloc::vec!["two", "zero", "one"]);
 
-//         proc_block.set_output_dimensions(&[1, 2, 3]);
-//     }
+        let got = proc_block.transform(input);
 
-//     #[test]
-//     #[should_panic = "Index out of bounds: there are 2 labels but label 42 was requested"]
-//     fn label_index_out_of_bounds() {
-//         let mut proc_block = Label::default();
-//         proc_block.set_labels(["first", "second"]);
-//         let input = Tensor::new_vector(alloc::vec![0_usize, 42]);
+        assert_eq!(got, should_be);
+    }
 
-//         let _ = proc_block.transform(input);
-//     }
+    // #[test]
+    //     #[should_panic]
+    //     fn only_works_with_1d_inputs() {
+    //         let mut proc_block = Label::default();
 
-//     #[test]
-//     fn get_the_correct_labels() {
-//         let mut proc_block = Label::default();
-//         proc_block.set_labels(["zero", "one", "two", "three"]);
-//         let input = Tensor::new_vector(alloc::vec![3, 1, 2]);
-//         let should_be = Tensor::new_vector(alloc::vec!["three", "one", "two"]);
+    //         proc_block.set_output_dimensions(&[1, 2, 3]);
+    //     }
 
-//         let got = proc_block.transform(input);
+    //     #[test]
+    //     #[should_panic = "Index out of bounds: there are 2 labels but label 42 was requested"]
+    //     fn label_index_out_of_bounds() {
+    //         let mut proc_block = Label::default();
+    //         proc_block.set_labels(["first", "second"]);
+    //         let input = Tensor::new_vector(alloc::vec![0_usize, 42]);
 
-//         assert_eq!(got, should_be);
-//     }
-// }
+    //         let _ = proc_block.transform(input);
+    //     }
+}
