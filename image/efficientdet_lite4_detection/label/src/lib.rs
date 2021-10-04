@@ -2,15 +2,12 @@
 
 extern crate alloc;
 
-use alloc::prelude::v1::Box;
 use alloc::vec;
 use alloc::vec::Vec;
 use core::{convert::TryInto, fmt::Debug};
-use hotg_rune_core::{HasOutputs, Tensor};
-use hotg_rune_proc_blocks::{ProcBlock, Transform};
+use hotg_rune_proc_blocks::{ProcBlock, Tensor, Transform};
 use itertools::Either;
 use num::One;
-use num::Zero;
 
 #[derive(Debug, Clone, PartialEq, ProcBlock)]
 pub struct Label {
@@ -35,7 +32,7 @@ impl Default for Label {
 
 impl<T> Transform<Tensor<T>> for Label
 where
-    T: Copy + TryInto<f64> + One + Zero + core::ops::Sub<Output = T>,
+    T: Copy + TryInto<f64> + One + core::ops::Sub<Output = T>,
     <T as TryInto<f64>>::Error: Debug,
 {
     type Output = Tensor<&'static str>;
@@ -68,20 +65,6 @@ where
                 None => panic!("Index out of bounds: there are  labels but label was requested"),
             })
             .collect()
-    }
-}
-
-impl HasOutputs for Label {
-    fn set_output_dimensions(&mut self, dimensions: &[usize]) {
-        match dimensions {
-            [rest @ .., _] if rest.iter().all(|d| *d == 1) => {}
-            _ => {
-                panic!(
-                    "This proc block only supports 1D outputs (requested output: {:?})",
-                    dimensions
-                );
-            }
-        }
     }
 }
 
