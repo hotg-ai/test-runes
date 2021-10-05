@@ -6,8 +6,6 @@ use alloc::vec;
 use alloc::vec::Vec;
 use core::{convert::TryInto, fmt::Debug};
 use hotg_rune_proc_blocks::{ProcBlock, Tensor, Transform};
-use itertools::Either;
-use num::One;
 
 #[derive(Debug, Clone, PartialEq, ProcBlock)]
 pub struct Label {
@@ -32,39 +30,46 @@ impl Default for Label {
 
 impl<T> Transform<Tensor<T>> for Label
 where
-    T: Copy + TryInto<f64> + One + core::ops::Sub<Output = T>,
+    T: Copy + num_traits::ToPrimitive + TryInto<f64>,
     <T as TryInto<f64>>::Error: Debug,
 {
     type Output = Tensor<&'static str>;
 
     fn transform(&mut self, input: Tensor<T>) -> Self::Output {
-        let indices = if self.class_index_numbering == "one-based indexing" {
-            Either::Left(
-                input
-                    .elements()
-                    .iter()
-                    .map(|&x| (x - T::one()))
-                    .map(|ix| ix.try_into().expect("Unable to convert the index to a f64")),
-            )
-        } else {
-            Either::Right(
-                input
-                    .elements()
-                    .iter()
-                    .map(|&x| (x))
-                    .map(|ix| ix.try_into().expect("Unable to convert the index to a f64")),
-            )
-        };
+        // let view = input
+        //     .view::<1>()
+        //     .expect("This proc block only supports 1D inputs");
+
+        let indices = input
+            .elements()
+            .iter()
+            .copied()
+            .map(|ix| {
+                ix.to_usize()
+                    .expect("Unable to convert the index to a usize")
+            })
+            .map(|ix| offset(ix, self.class_index_numbering));
 
         // Note: We use a more cumbersome match statement instead of unwrap()
         // to provide the user with more useful error messages
-
         indices
-            .map(|ix| match self.labels.get(ix as usize) {
+            .map(|ix| match self.labels.get(ix) {
                 Some(&label) => label,
-                None => panic!("Index out of bounds: there are  labels but label was requested"),
+                None => panic!(
+                    "Index out of bounds: there are {} labels but label {} was requested",
+                    self.labels.len(),
+                    ix
+                ),
             })
             .collect()
+    }
+}
+
+fn offset(original_index: usize, class_index_numbering: &str) -> usize {
+    match class_index_numbering {
+        "one-based indexing" => original_index - 1,
+        "zero-based indexing" => original_index,
+        _ => unreachable!("The class_index_numbering should be either \"one-based indexing\" or \"zero-based indexing\"")
     }
 }
 
@@ -76,7 +81,7 @@ mod tests {
     fn get_the_correct_labels() {
         let mut proc_block = Label::new(vec!["zero", "one", "two", "three"], "one-based indexing");
         // proc_block.set_labels(["zero", "one", "two", "three"]);
-        let input = Tensor::new_vector(alloc::vec![3, 1, 2]);
+        let input = Tensor::new_vector(alloc::vec![3.0, 1.0, 2.0]);
         let should_be = Tensor::new_vector(alloc::vec!["two", "zero", "one"]);
 
         let got = proc_block.transform(input);

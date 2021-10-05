@@ -118,4 +118,3 @@ pipeline:
     out: SERIAL
     inputs:
       - label
-      - efficientdet.0

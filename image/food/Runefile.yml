@@ -1,16 +1,11 @@
----
-version: "1"
+version: 1
 image: runicos/base
 pipeline:
   image:
     capability: IMAGE
     outputs:
       - type: U8
-        dimensions:
-          - 1
-          - 192
-          - 192
-          - 3
+        dimensions: [1,192,192,3]
     args:
       width: 192
       height: 192
@@ -21,28 +16,25 @@ pipeline:
       - image
     outputs:
       - type: U8
-        dimensions:
-          - 1
-          - 2024
+        dimensions: [1,2024]
   most_confident:
     proc-block: "hotg-ai/rune#proc_blocks/most_confident_indices"
     inputs:
       - food
     outputs:
       - type: U32
-        dimensions:
-          - 3
+        dimensions: [3]
     args:
       count: 3
   label:
-    proc-block: "hotg-ai/rune#proc_blocks/label"
+    proc-block: "./label"
     inputs:
       - most_confident
     outputs:
       - type: UTF8
-        dimensions:
-          - 3
+        dimensions: [3]
     args:
+      class_index_numbering: one-based indexing
       labels:
         - __background__
         - Chaudin
@@ -2072,4 +2064,3 @@ pipeline:
     out: SERIAL
     inputs:
       - label
-      - most_confident
