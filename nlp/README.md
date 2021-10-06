@@ -14,9 +14,9 @@ Steps to run `Bert model`:
 5. Download [mobilebert.tflite](https://tfhub.dev/tensorflow/lite-model/mobilebert/1/default/1) (file is above 100Mb so with git clone you will only get the text file)
 6. Generate `bert.rune` with this command: `rune build Runefile.yml --unstable --rune-repo-dir ~/rune`
 
-                      or 
+      or 
 
-   To avoid previous steps (1-6) download `bert.rune` from [here](https://drive.google.com/file/d/18xxcXX9SlNgx9Tc6q2cmL7yF-HymuE9w/view?usp=sharing)
+  To avoid previous steps (1-6) download `bert.rune` from [here](https://drive.google.com/file/d/18xxcXX9SlNgx9Tc6q2cmL7yF-HymuE9w/view?usp=sharing)
 
 
 Steps to Run the model:
