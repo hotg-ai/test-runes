@@ -6,8 +6,7 @@ use alloc::borrow::Cow;
 use alloc::string::String;
 use alloc::vec;
 use alloc::vec::Vec;
-use hotg_rune_core::{HasOutputs, Tensor};
-use hotg_rune_proc_blocks::{ProcBlock, Transform};
+use hotg_rune_proc_blocks::{ProcBlock, Tensor, Transform};
 
 #[derive(Debug, Clone, PartialEq, ProcBlock)]
 pub struct TextExtractor {}
@@ -48,7 +47,7 @@ impl Transform<(Tensor<u8>, Tensor<u32>, Tensor<u32>)> for TextExtractor {
             );
         }
 
-        let v = &input_text[start_index as usize..end_index as usize];
+        let v = &input_text[start_index as usize..end_index as usize + 1];
 
         let mut buffer = String::new();
         for tok in v {
@@ -67,8 +66,6 @@ impl Transform<(Tensor<u8>, Tensor<u32>, Tensor<u32>)> for TextExtractor {
         Tensor::new_vector(output_text)
     }
 }
-
-impl HasOutputs for TextExtractor {}
 
 #[cfg(test)]
 

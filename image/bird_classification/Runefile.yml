@@ -1,15 +1,11 @@
----
-version: "1"
+version: 1
 image: runicos/base
 pipeline:
   image:
     capability: IMAGE
     outputs:
       - type: U8
-        dimensions:
-          - 3
-          - 224
-          - 224
+        dimensions: [1,224, 224, 3]
     args:
       width: 224
       height: 224
@@ -20,8 +16,7 @@ pipeline:
       - image
     outputs:
       - type: U8
-        dimensions:
-          - 965
+        dimensions: [1,965]
   most_confident:
     proc-block: "hotg-ai/rune#proc_blocks/most_confident_indices"
     inputs:

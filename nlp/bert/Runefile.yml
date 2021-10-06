@@ -68,6 +68,7 @@ pipeline:
       - argmax_end_logit
     outputs: 
       - type: UTF8
+      
         dimensions: [1]     # output will be variable
 
   serial:

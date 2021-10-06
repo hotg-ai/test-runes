@@ -1,8 +1,7 @@
 #![no_std]
 
 extern crate alloc;
-use hotg_rune_core::{HasOutputs, Tensor};
-use hotg_rune_proc_blocks::{ProcBlock, Transform};
+use hotg_rune_proc_blocks::{ProcBlock, Tensor, Transform};
 use libm::expf;
 
 #[derive(Debug, Clone, PartialEq, ProcBlock)]
@@ -31,4 +30,3 @@ impl Transform<Tensor<f32>> for Softmax {
     }
 }
 
-impl HasOutputs for Softmax {}

@@ -3,8 +3,7 @@
 extern crate alloc;
 use alloc::vec;
 use alloc::vec::Vec;
-use hotg_rune_core::{HasOutputs, Tensor};
-use hotg_rune_proc_blocks::{ProcBlock, Transform};
+use hotg_rune_proc_blocks::{ProcBlock, Tensor, Transform};
 
 #[derive(Debug, Clone, PartialEq, ProcBlock)]
 pub struct Argmax {}
@@ -39,5 +38,3 @@ impl Transform<Tensor<f32>> for Argmax {
         Tensor::new_vector(v)
     }
 }
-
-impl HasOutputs for Argmax {}

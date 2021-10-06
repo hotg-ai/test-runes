@@ -3,12 +3,6 @@
 version = 3
 
 [[package]]
-name = "autocfg"
-version = "1.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
-
-[[package]]
 name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -16,8 +10,9 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "hotg-rune-core"
-version = "0.7.1-dev"
-source = "git+https://github.com/hotg-ai/rune?tag=nightly#fb8a4d43f05ecd1836d48af67eefe3ba3e44aa4c"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "22f49d3938dbb26cfcfad99dcedce6c287b70b4519dcd4ab2b6b12a1ea022cb4"
 dependencies = [
  "log",
  "serde",
@@ -25,8 +20,9 @@ dependencies = [
 
 [[package]]
 name = "hotg-rune-proc-block-macros"
-version = "0.7.1-dev"
-source = "git+https://github.com/hotg-ai/rune?tag=nightly#fb8a4d43f05ecd1836d48af67eefe3ba3e44aa4c"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "572c7e954b0bec352339e0e6bc96edbcff33e44ea668c3dbbe0ae4b133d3cf88"
 dependencies = [
  "hotg-rune-core",
  "proc-macro2",
@@ -38,8 +34,9 @@ dependencies = [
 
 [[package]]
 name = "hotg-rune-proc-blocks"
-version = "0.7.1-dev"
-source = "git+https://github.com/hotg-ai/rune?tag=nightly#fb8a4d43f05ecd1836d48af67eefe3ba3e44aa4c"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5119da997d4b2e19072720ea81bc62d83ef7f39e04f8eba0f935dea0265f651c"
 dependencies = [
  "hotg-rune-core",
  "hotg-rune-proc-block-macros",
@@ -54,11 +51,17 @@ checksum = "b71991ff56294aa922b450139ee08b3bfc70982c6b2c7562771375cf73542dd4"
 
 [[package]]
 name = "label"
-version = "0.7.1-dev"
+version = "0.8.0"
 dependencies = [
  "hotg-rune-proc-blocks",
- "num-traits",
+ "libm",
 ]
+
+[[package]]
+name = "libm"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c7d73b3f436185384286bd8098d17ec07c9a7d2388a6599f824d8502b529702a"
 
 [[package]]
 name = "log"
@@ -68,15 +71,6 @@ checksum = "51b9bbe6c47d51fc3e1a9b945965946b4c44142ab8792c50835a980d362c2710"
 dependencies = [
  "cfg-if",
  "serde",
-]
-
-[[package]]
-name = "num-traits"
-version = "0.2.14"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9a64b1ec5cda2586e284722486d802acf1f7dbdc623e2bfc57e65ca1cd099290"
-dependencies = [
- "autocfg",
 ]
 
 [[package]]

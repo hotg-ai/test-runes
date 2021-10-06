@@ -20,8 +20,7 @@ pub use crate::{
     tokenizer::{BertTokenizer, Tokenizer, TruncationStrategy},
     vocab::{BertVocab, Vocab},
 };
-use hotg_rune_core::{HasOutputs, Tensor};
-use hotg_rune_proc_blocks::{ProcBlock, Transform};
+use hotg_rune_proc_blocks::{ProcBlock, Tensor, Transform};
 
 #[derive(ProcBlock)]
 pub struct Tokenizers {
@@ -77,12 +76,6 @@ impl Transform<(Tensor<u8>, Tensor<u8>)> for Tokenizers {
             0,
         );
 
-        let ind = segment_ids
-            .iter()
-            .position(|y| *y == 1)
-            .map(|index| index as i64)
-            .expect("Unable to find split between sentence 1 and sentence 2");
-
         let mut mask_ids: Vec<i32> = vec![1; token_ids.len()];
         token_ids.resize(384, 0);
         mask_ids.resize(384, 0);
@@ -93,7 +86,7 @@ impl Transform<(Tensor<u8>, Tensor<u8>)> for Tokenizers {
         let seg_ids: Vec<i32> = segment_ids.iter().map(|&x| x as i32).collect::<Vec<i32>>();
 
         let mut words = String::new();
-        let tok_ids = &token_ids[ind as usize..];
+        let tok_ids = &token_ids[0 as usize..];
 
         for id in tok_ids {
             let s = self.bert_vocab.id_to_token(*id);
@@ -112,7 +105,3 @@ impl Transform<(Tensor<u8>, Tensor<u8>)> for Tokenizers {
         )
     }
 }
-
-impl HasOutputs for Tokenizers {}
-
-

@@ -32,7 +32,6 @@ pipeline:
       - type: UTF8
         dimensions: [25]
     args:
-      class_index_numbering: one-based indexing
       labels:
         - person
         - bicycle
@@ -118,3 +117,4 @@ pipeline:
     out: SERIAL
     inputs:
       - label
+      # - efficientdet.1
