@@ -12,12 +12,12 @@ pipeline:
       width: 257
       pixel-format: "@PixelFormat::RGB"
   normalize:
-    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    proc-block: "hotg-ai/proc-blocks#image-normalization"
     inputs:
-    - image
+     - image
     outputs:
-    - type: f32
-      dimensions: [1, 257, 257, 3]
+      - type: f32
+        dimensions: [1, 257, 257, 3]
   deep_lab:
     model: "./deeplabv3.tflite"
     inputs:

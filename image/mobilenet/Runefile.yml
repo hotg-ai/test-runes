@@ -12,21 +12,21 @@ pipeline:
       height: 224
       width: 224
   # normalized_image:
-  #   proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+  #   proc-block: "hotg-ai/proc-blocks#image-normalization"
   #   inputs:
   #   - image
   #   outputs:
   #   - type: f32
   #     dimensions: [1, 224, 224, 3]
   model:
-    model: "./mobilenet_v2_1.0_224_quantized_1_default_1.tflite"
+    model: "./mobilenet_v2_1.0_224_1_default_1.tflite"
     inputs:
       - image
     outputs:
       - type: u8
         dimensions: [1,1001]
   most_confident_index:
-    proc-block: "hotg-ai/rune#proc-blocks/most_confident_indices"
+    proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
       - model
     outputs:
@@ -35,7 +35,7 @@ pipeline:
     args:
       count: 3
   label:
-    proc-block: "hotg-ai/rune#proc-blocks/label"
+    proc-block: "hotg-ai/proc-blocks#label"
     inputs:
       - most_confident_index
     outputs:

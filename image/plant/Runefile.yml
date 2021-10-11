@@ -19,7 +19,7 @@ pipeline:
       - type: U8
         dimensions: [1,2102]
   most_confident_index:
-    proc-block: "hotg-ai/rune#proc-blocks/most_confident_indices"
+    proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
       - model
     outputs:
@@ -28,7 +28,7 @@ pipeline:
     args:
       count: 3
   label:
-    proc-block: "hotg-ai/rune#proc-blocks/label"
+    proc-block: "hotg-ai/proc-blocks#label"
     inputs:
       - most_confident_index
     outputs:

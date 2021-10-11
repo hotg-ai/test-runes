@@ -8,25 +8,27 @@ pipeline:
       - type: u8
         dimensions: [1,320,320,3]
     args:
+      pixel-format: "@PixelFormat::RGB"
       height: 320
       width: 320
-      pixel-format: "@PixelFormat::RGB"
-  east_text_detector:
-    model: "./east-text-detector_fp16_1.tflite"
+  normalized_image:
+    proc-block: "hotg-ai/proc-blocks#image-normalization"
     inputs:
       - image
     outputs:
+      - type: f32
+        dimensions: [1, 320, 320, 3]
+  east_text_detector:
+    model: "./east-text-detector_fp16_1.tflite"
+    inputs:
+      - normalized_image
+    outputs:
       outputs:
       - type: f32
-        dimensions: [1,25, 4]
+        dimensions: [1,80,80,1]
       - type: f32
-        dimensions: [1,25]
-      - type: f32
-        dimensions: [1,25]
-      - type: f32
-        dimensions: [1]
+        dimensions: [1,80,80,5]
   serial:
     out: SERIAL
     inputs:
-      - east_text_detector.0
-      - east_text_detector.1
+      - east_text_detector

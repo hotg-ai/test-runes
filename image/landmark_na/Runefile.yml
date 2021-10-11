@@ -18,7 +18,7 @@ pipeline:
       - type: F32
         dimensions: [1,99424]
   most_confident:
-    proc-block: "hotg-ai/rune#proc_blocks/most_confident_indices"
+    proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
       - landmark
     outputs:
@@ -28,7 +28,7 @@ pipeline:
     args:
       count: 3
   label:
-    proc-block: "hotg-ai/rune#proc_blocks/label"
+    proc-block: "hotg-ai/proc-blocks#label"
     inputs:
       - most_confident
     outputs:
@@ -4433,7 +4433,7 @@ pipeline:
         - Templo de San Francisco Javier
         - Corktown
         - The San Diego Museum of Art
-        - "San Carlos Borromeo, San Carlos"
+        - San Carlos Borromeo, San Carlos
         - Times Square
         - Wheeling Suspension Bridge
         - Point Fermin Lighthouse
@@ -4491,7 +4491,7 @@ pipeline:
         - James C. Flood Mansion
         - Virginia V
         - Rainbow International Bridge
-        - Boston University: Agganis Arena
+        - Boston University Agganis Arena
         - Lake Anna State Park
         - La Quebrada
         - William McKinley Gravesite
@@ -4561,7 +4561,7 @@ pipeline:
         - Washington Monument
         - Haleakalā National Park
         - Lachine Canal
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Saguenay Fjords National Park
         - Corktown
         - Kiptopeke State Park
@@ -4652,7 +4652,7 @@ pipeline:
         - Esplanade Avenue
         - Church of the Sacred Heart
         - Burrard Inlet
-        - "James W. Townsend House (Orange Springs, Florida)"
+        - James W. Townsend House (Orange Springs, Florida)"
         - Cedar Grove Cemetery
         - Catedral de Aguascalientes
         - Javits Center
@@ -4689,7 +4689,7 @@ pipeline:
         - Mount Roberts Tramway
         - Bridgestone Arena
         - Parliament Building
-        - "Kahanu Garden, National Tropical Botanical Garden"
+        - Kahanu Garden, National Tropical Botanical Garden"
         - Hawthorne Museum Historical
         - St. Lawrence
         - Lincoln Memorial
@@ -4889,7 +4889,7 @@ pipeline:
         - Archaeological Zone Yohualichan
         - Congressional Country Club
         - Great Theatre of Havana
-        - "Avenue Cartier, Quebec City"
+        - Avenue Cartier, Quebec City"
         - Golden Gate Bridge
         - St Anne's Anglican Church
         - Saint-Henri
@@ -4904,13 +4904,13 @@ pipeline:
         - Fountain Of Eternal Life (Memorial Fountain)
         - Mrs. Minnie Alexander Cottage
         - Guanabo
-        - "LondonHouse Chicago, Curio Collection by Hilton"
+        - LondonHouse Chicago, Curio Collection by Hilton"
         - Backstreet Cultural Museum
         - Sara D. Roosevelt Park
         - Ivyland Historic District
         - Rochester City Hall
         - Mokoliʻi
-        - "Temple of the Feathered Serpent, Teotihuacan"
+        - Temple of the Feathered Serpent, Teotihuacan"
         - John F. Kennedy Center for the Performing Arts
         - Esplanade Avenue
         - Seattle Aquarium
@@ -5048,7 +5048,7 @@ pipeline:
         - MacGregor Point Provincial Park
         - Shrine of Our Lady of Remedies
         - Corktown
-        - Rivers of Steel: Carrie Blast Furnaces National Historic Landmark
+        - Rivers of Steel Carrie Blast Furnaces National Historic Landmark
         - Hampton Park Terrace
         - The Armory
         - Dominion Observatory
@@ -5085,7 +5085,7 @@ pipeline:
         - Ambassador Bridge
         - Aloha Tower
         - Monument to the Martyrs of January 9th
-        - "Rockland, Maine Turntable"
+        - Rockland, Maine Turntable"
         - Geisel Library
         - Episcopal Diocese of Southwest Florida
         - Plaza de Panama
@@ -5109,7 +5109,7 @@ pipeline:
         - Douthat State Park
         - Johns Hopkins Glacier
         - Séminaire De Québec
-        - "Leon Trotsky Museum, Mexico City"
+        - Leon Trotsky Museum, Mexico City"
         - Gilbert Arizona Temple
         - Mo‘omomi
         - Takakkaw Falls
@@ -5158,16 +5158,16 @@ pipeline:
         - CN Tower
         - San Francisco City Hall
         - Rainbow Springs State Park
-        - "St. Anne's Cathedral, La Pocatière"
+        - St. Anne's Cathedral, La Pocatière"
         - Los Angeles City Hall
         - Lions Gate Bridge
         - Humpback Bridge
         - T-Mobile Park
-        - "Leon Trotsky Museum, Mexico City"
+        - Leon Trotsky Museum, Mexico City"
         - Cattle Bank
         - Knowles Memorial Chapel
         - Saint-Henri
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Old Port of Montreal
         - Black Hawk Statue
         - Peace Monument
@@ -5213,7 +5213,7 @@ pipeline:
         - Kissimmee Air Museum
         - Black Rock Desert
         - Astoria Center of Israel
-        - "Christian Science Church - The Mother Church, The First Church of Christ, Scientist, Boston"
+        - Christian Science Church - The Mother Church, The First Church of Christ, Scientist, Boston"
         - Capilano Suspension Bridge
         - Wild Adventures
         - St. Peter's Roman Catholic Church
@@ -5233,7 +5233,7 @@ pipeline:
         - Cunard Building
         - Metropolitan Cathedral of Chihuahua
         - Porteau Cove Provincial Park
-        - "Regus - Alabama, Mobile - RSA Battle House Tower"
+        - Regus - Alabama, Mobile - RSA Battle House Tower"
         - Fort Pulaski National Monument
         - The Historic Sacred Heart Hospital
         - Little Rock Central High School
@@ -5340,7 +5340,7 @@ pipeline:
         - Lake Union Park
         - Lake Powell
         - North Conway Depot and Railroad Yard
-        - "St. Anne's Cathedral, La Pocatière"
+        - St. Anne's Cathedral, La Pocatière"
         - Liberty Park
         - US Marine Corps War Memorial
         - The Wrigley Building
@@ -5360,7 +5360,7 @@ pipeline:
         - Jockey's Ridge State Park
         - Manassas National Battlefield Park
         - Sky Meadows State Park
-        - "Trump International Hotel, Washington, D.C."
+        - Trump International Hotel, Washington, D.C."
         - Cape Egmont Lighthouse
         - Rocky Mountain National Park
         - Ivvavik National Park
@@ -5536,7 +5536,7 @@ pipeline:
         - Douthat State Park
         - Alpengeist
         - La Grosse-Île
-        - "Place Pasteur, Montreal"
+        - Place Pasteur, Montreal"
         - West Virginia Capitol Building
         - Goosenecks State Park
         - New Hope School
@@ -5617,7 +5617,7 @@ pipeline:
         - San Francisco – Oakland Bay Bridge
         - Basilica of Saint Mary
         - Sleeping Beauty Castle Walkthrough
-        - "Castello di Amorosa - Calistoga, CA"
+        - Castello di Amorosa - Calistoga, CA"
         - Banff National Park Of Canada
         - Mendocino Presbyterian Church
         - Monterey Bay
@@ -5631,7 +5631,7 @@ pipeline:
         - Santa Anita Park
         - Devils Punchbowl State Natural Area
         - Kāne‘ohe Bay
-        - "Champ de Mars, Montreal"
+        - Champ de Mars, Montreal"
         - New York Harbor
         - Monongahela River
         - Molokini
@@ -5664,7 +5664,7 @@ pipeline:
         - Palacio de la Autonomía
         - Copan Ruinas
         - Fishermen's Terminal
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - Embassy of Sierra Leone
         - Golden Gate National Cemetery
         - La Citadelle de Québec
@@ -5702,7 +5702,7 @@ pipeline:
         - Falls Park
         - Montezuma Castle National Monument
         - Mexico City Arena
-        - "Leon Trotsky Museum, Mexico City"
+        - Leon Trotsky Museum, Mexico City"
         - Rockwell Church
         - West and East Mitten Buttes
         - Bridgestone Arena
@@ -5730,11 +5730,11 @@ pipeline:
         - Newspaper Rock State Historical Monument
         - Financial District
         - Greenmead Historical Village
-        - "Capilla del Rosario, Santo Domingo"
+        - Capilla del Rosario, Santo Domingo"
         - West Side Market
         - Montreal City Hall
         - Bahá'í House of Worship
-        - "Champ de Mars, Montreal"
+        - Champ de Mars, Montreal"
         - Mission San Miguel Arcángel
         - Wright Brothers National Memorial
         - LaVale Toll Gate House
@@ -5781,7 +5781,7 @@ pipeline:
         - Natural Tunnel State Park
         - Gros Morne National Park Of Canada
         - Molokini
-        - "Capilla del Rosario, Santo Domingo"
+        - Capilla del Rosario, Santo Domingo"
         - Deeth
         - Purple People Bridge
         - Mount Rainier National Park
@@ -5789,7 +5789,7 @@ pipeline:
         - Trunk Bay
         - Meadowlark Botanical Gardens
         - Transamerica Pyramid
-        - "Champ de Mars, Montreal"
+        - Champ de Mars, Montreal"
         - Verrazzano-Narrows Bridge
         - UCR ARTS
         - Pearl Harbor Aviation Museum
@@ -5860,7 +5860,7 @@ pipeline:
         - Goleta Beach Park
         - Carnegie Museum of Natural History
         - The University of Chicago Library
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Grayson Highlands State Park
         - Pictured Rocks National Lakeshore
         - Banff National Park Of Canada
@@ -5894,7 +5894,7 @@ pipeline:
         - The Bass Harbor Head Lighthouse
         - Mount Moran
         - Yellowstone River
-        - "Cathedral of León, Guanajuato"
+        - Cathedral of León, Guanajuato"
         - Historic Cypress Street Schoolhouse
         - Pyramid of the Magician
         - Old Courthouse
@@ -5942,7 +5942,7 @@ pipeline:
         - Sharon Temple National Historic Site and Museum
         - CF Toronto Eaton Centre
         - Sawtooth Range
-        - "Basilica of Saint Lawrence, Deacon and Martyr"
+        - Basilica of Saint Lawrence, Deacon and Martyr"
         - Molokini
         - Monumento a Goethals
         - Blue Hole
@@ -5957,7 +5957,7 @@ pipeline:
         - Mammoth Hot Springs
         - Gathright Dam
         - Christ Church Cathedral
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - Guiengola
         - United States Botanic Garden
         - Canyon Lake
@@ -6071,7 +6071,7 @@ pipeline:
         - Cleveland Public Square
         - Niagara Falls
         - Hollywood Forever Cemetery
-        - "Museo Rufino Tamayo, Oaxaca"
+        - Museo Rufino Tamayo, Oaxaca"
         - Nike Missile Site SF-88
         - Petco Park
         - FOCSA Building
@@ -6123,7 +6123,7 @@ pipeline:
         - Bowling Green
         - American Falls
         - Belcarra Regional Park
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - Shenandoah River State Park
         - El Tazumal
         - Théâtre du Nouveau Monde
@@ -6230,7 +6230,7 @@ pipeline:
         - Plaza de las Tres Centurias
         - Labna
         - Acadia National Park
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - Michigan State Capitol
         - Thomas Jefferson Memorial
         - Fort Pulaski National Monument
@@ -6269,7 +6269,7 @@ pipeline:
         - The Custom House
         - Bixby Creek Bridge
         - Fort Schuyler
-        - "Atlantic Bridge, Panama"
+        - Atlantic Bridge, Panama"
         - Amboy Depot Museum
         - Canaan Meeting House
         - American Swedish Institute
@@ -6336,7 +6336,7 @@ pipeline:
         - King Street Station
         - Cotton Belt Depot Museum
         - Mission San Jose Church
-        - "Ex monastery of Saint Augustinus, Acolman, Mexico State, Mexico"
+        - Ex monastery of Saint Augustinus, Acolman, Mexico State, Mexico"
         - Episcopal Diocese of Southwest Florida
         - Pyramid of the Magician
         - St Augustine Lighthouse & Maritime Museum
@@ -6487,7 +6487,7 @@ pipeline:
         - Lake Tarleton
         - San Diego California Temple
         - California Automobile Museum
-        - "Ardastra Gardens, Zoo and Conservation Centre"
+        - Ardastra Gardens, Zoo and Conservation Centre"
         - Lambeau Field
         - South Dakota State Capitol
         - Lapham-Patterson House Historic Site
@@ -6531,7 +6531,7 @@ pipeline:
         - Chapel of the Holy Cross
         - March Field Air Museum
         - Fairmont Banff Springs
-        - "Capilla del Rosario, Santo Domingo"
+        - Capilla del Rosario, Santo Domingo"
         - Historic Niagara District Court House
         - Sand Mountain
         - Lake Union Park
@@ -6549,7 +6549,7 @@ pipeline:
         - Old Point Loma Lighthouse
         - Greenwood Cemetery
         - Unicorn Peak
-        - "Colon Cemetery, Havana"
+        - Colon Cemetery, Havana"
         - Great Abaco
         - University Museum of Anthropology
         - Santa Prisca de Taxco
@@ -6593,7 +6593,7 @@ pipeline:
         - Texas State Library and Archives Commission
         - Lorton Reformatory
         - Corktown
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - Atlantis Bahamas
         - Place Jacques-Cartier
         - Arroyo Burro Beach County Park
@@ -6671,7 +6671,7 @@ pipeline:
         - Turquoise Pool
         - St. Paul's Chapel of Trinity Church Wall Street
         - Rockwood Conservation Area
-        - Párroco: Pbro. Freddy López Hernández
+        - Párroco Pbro. Freddy López Hernández
         - Île Paton
         - Pioneer Square
         - York River State Park
@@ -6689,7 +6689,7 @@ pipeline:
         - Blue Water Bridge
         - United States Custom House (Baltimore)
         - Aga Khan Museum
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Mānana
         - Walnut Canyon National Monument
         - Grand Prismatic Spring
@@ -6700,7 +6700,7 @@ pipeline:
         - Temple of the Inscriptions
         - Split Rock Lighthouse
         - Mason Neck State Park
-        - "Place Pasteur, Montreal"
+        - Place Pasteur, Montreal"
         - Golden Gate Bridge
         - Breed Street Shul Project
         - Yaquina Bay Bridge
@@ -6723,7 +6723,7 @@ pipeline:
         - Navy Pier
         - Willis Tower
         - Mission San Luis Rey
-        - "United States Post Office (Belvidere, Illinois)"
+        - United States Post Office (Belvidere, Illinois)"
         - Copper Canyon
         - Yavapai County Courthouse
         - Colonial Williamsburg Historic Area
@@ -6795,7 +6795,7 @@ pipeline:
         - Castillo de San Marcos
         - Palacio Postal
         - West Bowmanville Zoo
-        - "Mary, Queen of the World Cathedral"
+        - Mary, Queen of the World Cathedral"
         - False Cape State Park
         - Niles Canyon Railway
         - Blue Hole
@@ -6896,7 +6896,7 @@ pipeline:
         - Castroville Japanese Language School
         - Tuzigoot National Monument
         - Perry's Victory & International Peace Memorial
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Ek Balam
         - Monmouth Park
         - Washington Union Station
@@ -6906,7 +6906,7 @@ pipeline:
         - Aline/Meiserville Covered Bridge
         - Kings Canyon National Park
         - Golden Gate Bridge
-        - "St. Mark's Cathedral, Tuxtla Gutiérrez"
+        - St. Mark's Cathedral, Tuxtla Gutiérrez"
         - Point Arena Lighthouse and Museum
         - Montana ExpoPark
         - Douthat State Park
@@ -6964,7 +6964,7 @@ pipeline:
         - Occoneechee State Park
         - Lincoln Memorial
         - Mission Concepción
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Cox School
         - House Of Charm
         - Mike O'Callaghan–Pat Tillman Memorial Bridge
@@ -7068,7 +7068,7 @@ pipeline:
         - Liberty Bridge
         - José Martí Memorial
         - Times Square
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Teton Range
         - Lehman Caves
         - Oaxaca Cathedral
@@ -7148,7 +7148,7 @@ pipeline:
         - Calvert Cliffs State Park
         - Paradise Island
         - Tinker Swiss Cottage Museum and Gardens
-        - "Capilla del Rosario, Santo Domingo"
+        - Capilla del Rosario, Santo Domingo"
         - Casino de Montréal
         - The Osborne Family Spectacle of Dancing Lights
         - Arroyo Burro Beach County Park
@@ -7171,12 +7171,12 @@ pipeline:
         - La Citadelle de Québec
         - Monticello Opera House
         - Clearwater Beach
-        - "Leon Trotsky Museum, Mexico City"
+        - Leon Trotsky Museum, Mexico City"
         - Historic Cypress Street Schoolhouse
         - Église catholique Sainte-Amélie à Baie-Comeau
         - Robertson Tunnel
         - Sacred Heart Catholic Church
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Fort Concho Museum
         - Grand Teton National Park
         - Welcome to Fabulous Las Vegas Sign
@@ -7246,7 +7246,7 @@ pipeline:
         - Faneuil Hall Marketplace
         - Faro a Colon
         - Times Square
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - Niagara Falls
         - Natural Bridges State Beach
         - Îles-de-Boucherville National Park
@@ -7388,7 +7388,7 @@ pipeline:
         - Longs Peak
         - Home Run Apple
         - King Street Station
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Boundary Peak Wilderness
         - Chapel of Our Lady of the Sacred Heart
         - Ek Balam
@@ -7419,7 +7419,7 @@ pipeline:
         - Mokuaikaua Church
         - Cathedral of the Transfiguration
         - Greater Nevada Field
-        - "The Westin Peachtree Plaza, Atlanta"
+        - The Westin Peachtree Plaza, Atlanta"
         - Hospital San Nicolás de Bari
         - Stony Point Lighthouse
         - Estadio General Francisco Morazán
@@ -7450,7 +7450,7 @@ pipeline:
         - Yosemite Valley
         - Tidal Basin
         - Encore Boston Harbor
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Grundy Lake Provincial Park
         - Fallsview Casino Resort
         - Museum Campus
@@ -7593,7 +7593,7 @@ pipeline:
         - Bonsecours Market
         - Seven Springs Mountain Resort
         - Bertelsmann Building
-        - "Superior Court of California, County of Madera"
+        - Superior Court of California, County of Madera"
         - St. Michael's Cathedral Basilica
         - Hemiciclo a Juarez
         - Downtown Park
@@ -7650,7 +7650,7 @@ pipeline:
         - Key Tower
         - Idaho Military History Museum
         - The Monastery of St. Tikhon of Zadonsk
-        - "The Ritz-Carlton, Montreal"
+        - The Ritz-Carlton, Montreal"
         - Albany City Hall
         - Palatka
         - Hyner View State Park
@@ -7880,7 +7880,7 @@ pipeline:
         - Lake McDonald
         - Kīlauea Iki Crater
         - The Theme Building
-        - "Kahanu Garden, National Tropical Botanical Garden"
+        - Kahanu Garden, National Tropical Botanical Garden"
         - Union Square
         - Key Tower
         - Space Needle
@@ -7940,7 +7940,7 @@ pipeline:
         - Holy Trinity Russian Orthodox Church
         - Wright Brothers National Memorial
         - Travel Town Gift Shop
-        - "Ex monastery of Saint Augustinus, Acolman, Mexico State, Mexico"
+        - Ex monastery of Saint Augustinus, Acolman, Mexico State, Mexico"
         - Tunkhannock Creek Viaduct
         - Grayson Highlands State Park
         - Tower City Center
@@ -8031,7 +8031,7 @@ pipeline:
         - San Jacinto Mountains
         - Jackson Ward
         - Arrowrock Dam
-        - "Mary, Queen of the World Cathedral"
+        - Mary, Queen of the World Cathedral"
         - Philadelphia City Hall
         - John F. Kennedy Center for the Performing Arts
         - Bixby Creek Bridge
@@ -8049,7 +8049,7 @@ pipeline:
         - Financial District
         - Chevy Commons
         - Drive-Thru Tree Park
-        - "Leon Trotsky Museum, Mexico City"
+        - Leon Trotsky Museum, Mexico City"
         - The Don CeSar
         - Ashbridge's Bay
         - Palacio Canton
@@ -8071,7 +8071,7 @@ pipeline:
         - Hôtel Le Concorde
         - Lachine Rapids
         - Maine State House
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Jack Block Park
         - Rockefeller Plaza
         - Cathedral of St. Mary
@@ -8138,7 +8138,7 @@ pipeline:
         - West Virginia Capitol Building
         - Leesylvania State Park
         - Banff National Park Of Canada
-        - "Odd Fellows Building (Portland, Oregon)"
+        - Odd Fellows Building (Portland, Oregon)"
         - Hampton Park Terrace
         - South Dakota Air and Space Museum
         - Jackson Ward
@@ -8154,7 +8154,7 @@ pipeline:
         - Centro de Congresos Querétaro
         - Maryland State Fairgrounds
         - Pawnee Buttes
-        - "Fair Lane, Home of Clara and Henry Ford"
+        - Fair Lane, Home of Clara and Henry Ford"
         - Hilton San Diego Bayfront
         - Palacio de Bellas Artes
         - High Bridge Trail
@@ -8226,7 +8226,7 @@ pipeline:
         - Grave Creek
         - Morro Rock
         - Haleakalā National Park
-        - "Our Lady of the Assumption Church, Lagos de Moreno"
+        - Our Lady of the Assumption Church, Lagos de Moreno"
         - Disneyland Hotel
         - Muskegon South Pierhead Lighthouse
         - Natural Tunnel State Park
@@ -8242,7 +8242,7 @@ pipeline:
         - First Unitarian Church of Oakland
         - Bradbury Building
         - Oregon Coast Scenic Railroad
-        - "Temple II, Temple of the Masks"
+        - Temple II, Temple of the Masks"
         - Stan Hywet Hall & Gardens
         - Pro Football Hall of Fame
         - Detroit River
@@ -8299,10 +8299,10 @@ pipeline:
         - Florida Botanical Gardens
         - John Whipple House
         - Balboa Theatre
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Olbrich Botanical Gardens
         - Fort Concho Museum
-        - "Ashbel Smith Building ""Old Red"""
+        - Ashbel Smith Building ""Old Red"""
         - Kykuit
         - Grand Teton National Park
         - San Bruno Mountain
@@ -8521,7 +8521,7 @@ pipeline:
         - Vasquez Rocks Natural Area Park
         - Erie Street Cemetery
         - George Mason's Gunston Hall
-        - "Museo Rufino Tamayo, Oaxaca"
+        - Museo Rufino Tamayo, Oaxaca"
         - Russ Chandler Stadium
         - Monument to the Revolution
         - Legislative Assembly of British Columbia
@@ -8571,7 +8571,7 @@ pipeline:
         - Bridge of the Americas
         - Clearwater Beach
         - The Museum of Modern Art
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - Pantheon of the Fatherland
         - Jackson Ward
         - Florida's Turnpike
@@ -8694,7 +8694,7 @@ pipeline:
         - Antigua Guatemala Cathedral
         - American Swedish Institute
         - Toronto City Hall
-        - "Trump International Hotel, Washington, D.C."
+        - Trump International Hotel, Washington, D.C."
         - Iztaccihuatl
         - Palacio de Bellas Artes
         - Cabot Tower
@@ -8709,7 +8709,7 @@ pipeline:
         - James River State Park
         - The Broad Exchange Building
         - Santa Monica Pier
-        - The Lyceum: Alexandria's History Museum
+        - The Lyceum Alexandria's History Museum
         - Misión San Francisco de Asís
         - Gettysburg National Military Park
         - The Mother Mosque of America (Islamic Cultural & Heritage Center)
@@ -8801,7 +8801,7 @@ pipeline:
         - Fort Edmonton Park
         - The Dalles Dam
         - Hoover Dam
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Sailor's Creek Battlefield State Park
         - Mount Shasta
         - Fuerte San Cristóbal
@@ -8971,7 +8971,7 @@ pipeline:
         - Haleakalā National Park
         - Aurora Bridge
         - The Terminal Tower Residences
-        - "Saint Mary's Cathedral Basilica, Halifax"
+        - Saint Mary's Cathedral Basilica, Halifax"
         - West Side Market
         - The Great Jaguar Tikal
         - Benjamin Franklin Parkway
@@ -9015,7 +9015,7 @@ pipeline:
         - OneAmerica Tower
         - La Quemada
         - Admiral David Glasgow Farragut Monument
-        - "Castello di Amorosa - Calistoga, CA"
+        - Castello di Amorosa - Calistoga, CA"
         - Fuerte San Cristóbal
         - Staunton River Battlefield State Park
         - Lower Geyser Basin
@@ -9032,7 +9032,7 @@ pipeline:
         - Toronto Old City Hall
         - Gateway Center
         - Saltillo Cathedral
-        - "Assumption Cathedral, Trois-Rivières"
+        - Assumption Cathedral, Trois-Rivières"
         - Hospicio Cabañas
         - Gibson House Museum
         - Kirk in the Hills
@@ -9052,7 +9052,7 @@ pipeline:
         - Cathedral of Guatemala City
         - Ohiopyle State Park
         - Gateway Center
-        - "Avenue Cartier, Quebec City"
+        - Avenue Cartier, Quebec City"
         - James River State Park
         - Expedition Everest
         - March Field Air Museum
@@ -9244,7 +9244,7 @@ pipeline:
         - Sumidero Canyon
         - Second Bank of the United States Portrait Gallery
         - Notre Dame Stadium
-        - "Sacred Heart Church, The Bottom"
+        - Sacred Heart Church, The Bottom"
         - Bonneville Salt Flats
         - Douthat State Park
         - Shrine Mont
@@ -9297,7 +9297,7 @@ pipeline:
         - Crater Lake National Park
         - Lake Agnes
         - Grayson Highlands State Park
-        - "Lock No. 1, North New River Canal"
+        - Lock No. 1, North New River Canal"
         - Flatiron Building
         - Tremé / Lafitte
         - Mount Royal Chalet
@@ -9498,7 +9498,7 @@ pipeline:
         - Central Railroad of New Jersey Terminal
         - Sir George-Étienne Cartier National Historic Site
         - New York City Hall
-        - "Kahanu Garden, National Tropical Botanical Garden"
+        - Kahanu Garden, National Tropical Botanical Garden"
         - Rialto Beach
         - Sault Ste. Marie Canal National Historic Site
         - Saint Aloysius Catholic Church
@@ -9564,7 +9564,7 @@ pipeline:
         - Margaret Mitchell House
         - White River Junction Amtrak
         - Dreibelbis Mill
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - The Church of St. Luke in the Fields
         - Haleakalā National Park
         - Yosemite National Park
@@ -9574,11 +9574,11 @@ pipeline:
         - Lake Union Park
         - Costa Rica's National Stadium
         - Sankaty Head Light
-        - "Trump International Hotel, Washington, D.C."
+        - Trump International Hotel, Washington, D.C."
         - USS Cairo Museum
         - Central Railroad of New Jersey Terminal
         - Athabasca Falls
-        - "Trump International Hotel, Washington, D.C."
+        - Trump International Hotel, Washington, D.C."
         - Old Main
         - Fuller Warren Bridge
         - Coquille River Lighthouse
@@ -9589,7 +9589,7 @@ pipeline:
         - The Great Jaguar Tikal
         - Sundial Bridge
         - Banff National Park Of Canada
-        - "Frank C. Erwin, Jr., Special Events Center"
+        - Frank C. Erwin, Jr., Special Events Center"
         - Washington Square Park
         - STAPLES Center
         - National Theatre
@@ -9874,7 +9874,7 @@ pipeline:
         - Olmsted Point
         - Pine Creek Cabins - White Pines Inn
         - San Jacinto Museum of History
-        - "BAPS Shri Swaminarayan Mandir, Toronto"
+        - BAPS Shri Swaminarayan Mandir, Toronto"
         - Ladd's Addition
         - Odegaard Undergraduate Library
         - St. Lawrence
@@ -9942,7 +9942,7 @@ pipeline:
         - Chichén Itzá
         - Boston Avenue United Methodist Church
         - Memorial Stadium
-        - "Complejo museísticos Ex Fabrica ""La Constancia"""
+        - Complejo museísticos Ex Fabrica ""La Constancia"""
         - Mount Royal Chalet
         - The 606
         - Santa Catalina Arch
@@ -10067,10 +10067,10 @@ pipeline:
         - Vehicle Assembly Building
         - The Dalí (Salvador Dalí Museum)
         - Waipio Valley
-        - "Temple of the Feathered Serpent, Teotihuacan"
+        - Temple of the Feathered Serpent, Teotihuacan"
         - The Cyclone Roller Coaster Coney Island NY
         - Falls Park
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Old Mackinac Point Lighthouse
         - Burke Lake Park
         - Basílica de Nuestra Señora de la Soledad
@@ -10211,7 +10211,7 @@ pipeline:
         - Barbados Wildlife Reserve
         - Colonial Williamsburg Courthouse
         - First Church of Christ Unitarian
-        - "Kahanu Garden, National Tropical Botanical Garden"
+        - Kahanu Garden, National Tropical Botanical Garden"
         - Niagara Falls
         - Museo de Antropología de Xalapa
         - Little Rock Central High School
@@ -10316,10 +10316,10 @@ pipeline:
         - New Hope Christian College
         - Indian Mound Cemetery
         - Hill Auditorium
-        - "Moana Surfrider, A Westin Resort & Spa, Waikiki Beach"
+        - Moana Surfrider, A Westin Resort & Spa, Waikiki Beach"
         - George Washington Memorial Parkway
         - First United Methodist Church
-        - "Hormiguero, Mexico"
+        - Hormiguero, Mexico"
         - French Quarter
         - Taking of the Armored Train
         - JW Marriott Essex House New York
@@ -10430,7 +10430,7 @@ pipeline:
         - Palacio de Bellas Artes
         - Koscuiuszko Bridge
         - Mattaponi Baptist Church
-        - "Mary, Queen of the World Cathedral"
+        - Mary, Queen of the World Cathedral"
         - Chesapeake Bay Bridge Tunnel
         - The World's Only Corn Palace
         - Raymondskill Falls
@@ -10447,7 +10447,7 @@ pipeline:
         - Jackson Ward
         - Lonsdale Quay Market
         - The Terminal Tower Residences
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Promenade des Artistes
         - Meadowlark Botanical Gardens
         - Jarbidge Lake
@@ -10466,7 +10466,7 @@ pipeline:
         - The St. Augustine Amphitheatre
         - Heavens Peak
         - Blue Water Bridge
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - Polynesian Cultural Center
         - Kennedy Space Center Visitor Complex
         - Embarcadero
@@ -10484,7 +10484,7 @@ pipeline:
         - Meteor Crater Natural Landmark
         - West Virginia Capitol Building
         - Archbald Pothole State Park
-        - "Columbus, Wisconsin City Hall"
+        - Columbus, Wisconsin City Hall"
         - Westmoreland Park Nature Playground
         - Parroquia de Basílica Colegiata de Nuestra Señora de Guanajuato
         - Old Faithful
@@ -10521,7 +10521,7 @@ pipeline:
         - Leonard P. Zakim Bunker Hill Memorial Bridge
         - Magens Bay Beach
         - Castle Clinton National Monument
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - Arcos Vallarta Guadalajara
         - Orpheum Theatre Phoenix
         - Westmoreland State Park
@@ -10544,7 +10544,7 @@ pipeline:
         - Carnegie Museum of Natural History
         - Rockaway Beach
         - North Peninsula State Park
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - La Citadelle de Québec
         - Temple of the Inscriptions
         - Hurricane Ridge
@@ -10590,7 +10590,7 @@ pipeline:
         - Episcopal Diocese of Southwest Florida
         - Transamerica Pyramid
         - Ek Balam
-        - "Depoe Bay, Oregon"
+        - Depoe Bay, Oregon"
         - Kolob Canyons
         - Sault Ste. Marie Museum
         - Old Main
@@ -10609,7 +10609,7 @@ pipeline:
         - Scotiabank Saddledome
         - McGraw Square
         - Mount Rushmore National Memorial
-        - "Avenue Cartier, Quebec City"
+        - Avenue Cartier, Quebec City"
         - Oregon Dunes National Recreation Area
         - Carnegie Hall
         - Half Dome
@@ -10739,7 +10739,7 @@ pipeline:
         - Belvédère du Chemin-Qui-Marche
         - George Washington Bridge
         - Old Town
-        - "Temple II, Temple of the Masks"
+        - Temple II, Temple of the Masks"
         - Sylvan Lake
         - Valley Forge National Historical Park
         - Winter Garden
@@ -10789,7 +10789,7 @@ pipeline:
         - Elbow Lake
         - Detroit-Superior Bridge
         - La Valenciana Church
-        - "Trent-Severn Waterway, Lock 21 - Peterborough Lift Lock"
+        - Trent-Severn Waterway, Lock 21 - Peterborough Lift Lock"
         - Crescent City Connection
         - Princes' Gates
         - PoCo Muse (Porter County Museum)
@@ -10832,9 +10832,9 @@ pipeline:
         - Upper Geyser Basin
         - Over-The-Rhine
         - Lewis Ginter Botanical Garden
-        - "Mary, Queen of the World Cathedral"
+        - Mary, Queen of the World Cathedral"
         - Mount Rushmore National Memorial
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - East Huntington Bridge
         - Cowan Tunnel
         - Villa Bagatelle
@@ -10902,7 +10902,7 @@ pipeline:
         - Hennepin County Courthouse
         - Koreshan State Park
         - San Mateo County Historical Museum
-        - "Castello di Amorosa - Calistoga, CA"
+        - Castello di Amorosa - Calistoga, CA"
         - Jones House
         - National Capitol building
         - PIER 39
@@ -10914,7 +10914,7 @@ pipeline:
         - Kolob Canyons
         - Bixby Creek Bridge
         - Boston's Old City Hall
-        - Skull Island: Reign of Kong
+        - Skull Island Reign of Kong
         - Devil's Punchbowl Conservation Area
         - Alcázar de Colón
         - Église Presbytérienne St. Andrew's Presbyterian Church
@@ -10924,7 +10924,7 @@ pipeline:
         - Cathedral of Guatemala City
         - Thompson Library
         - Cosmovitral
-        - "Kahanu Garden, National Tropical Botanical Garden"
+        - Kahanu Garden, National Tropical Botanical Garden"
         - Place d'Armes
         - Herbert Lake
         - St Mary's Catholic Church
@@ -10954,9 +10954,9 @@ pipeline:
         - Patrick Henry's Red Hill
         - Providence Park
         - Old Point Loma Lighthouse
-        - "Assumption Cathedral, Trois-Rivières"
+        - Assumption Cathedral, Trois-Rivières"
         - Stearns Wharf
-        - "Stillwater Lift Bridge, Historic Site"
+        - Stillwater Lift Bridge, Historic Site"
         - Honolulu City Hall
         - Peridot Mesa
         - St. Peter's Roman Catholic Church
@@ -10974,7 +10974,7 @@ pipeline:
         - Sumidero Canyon
         - Tempe Town Lake
         - Fort King George State Historic Site
-        - "Avenue Cartier, Quebec City"
+        - Avenue Cartier, Quebec City"
         - Rio Lempa
         - Gateway Center
         - Jackson Ward
@@ -10996,7 +10996,7 @@ pipeline:
         - Rockefeller Plaza
         - Westfield Valley Fair
         - Capilano Suspension Bridge
-        - "Ex monastery of Saint Augustinus, Acolman, Mexico State, Mexico"
+        - Ex monastery of Saint Augustinus, Acolman, Mexico State, Mexico"
         - Marietas Islands
         - The Custom House
         - Manhasset Bay
@@ -11107,7 +11107,7 @@ pipeline:
         - Scotts Bluff National Monument
         - Wade Park
         - Indiana World War Memorial
-        - "Mary, Queen of the World Cathedral"
+        - Mary, Queen of the World Cathedral"
         - The Terminal Tower Residences
         - Mount Davis
         - Cape Lookout Lighthouse
@@ -11141,7 +11141,7 @@ pipeline:
         - Florida Citrus Tower
         - Bea Evenson Fountain
         - Fort Jackson
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - Elgin Fire Barn No. 5 Museum
         - Trunk Bay
         - St. Francis Xavier Cathedral
@@ -11437,7 +11437,7 @@ pipeline:
         - Historic Chinatown Gate
         - Chimney Rock at Chimney Rock State Park
         - Woodhaven
-        - "Superior Court of California, County of Madera"
+        - Superior Court of California, County of Madera"
         - Town Creek Indian Mound State Historic Site
         - Peggy's Cove Gift Shop Ltd
         - Church of St. Michael and St. Anthony
@@ -11468,7 +11468,7 @@ pipeline:
         - Save the Bay
         - Corktown
         - St. Lawrence
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - Sumidero Canyon
         - National Mall
         - SS Jeremiah O'Brien
@@ -11564,7 +11564,7 @@ pipeline:
         - Sumidero Canyon
         - MacArthur Park
         - Yerba Buena Island
-        - "Public Art ""Guardian of Water"""
+        - Public Art ""Guardian of Water"""
         - Palacio Postal
         - Mitla
         - Old Well
@@ -11610,9 +11610,9 @@ pipeline:
         - Falcon Lake
         - Leonard P. Zakim Bunker Hill Memorial Bridge
         - Cunard Building
-        - "Our Lady of Solitude Cathedral, Acapulco"
+        - Our Lady of Solitude Cathedral, Acapulco"
         - Boldt Castle & Boldt Yacht House
-        - "A.A. Payne-John Christo, Sr. House"
+        - A.A. Payne-John Christo, Sr. House"
         - La Marquesa
         - Museo de la Charreria
         - Craigflower Manor & Schoolhouse
@@ -11636,7 +11636,7 @@ pipeline:
         - Scotts Bluff National Monument
         - Bridge of Lions
         - St. Basil's Catholic Parish at the University of St. Michael's College
-        - "First Church of Christ, Scientist, Seattle, and Christian Science Reading Room"
+        - First Church of Christ, Scientist, Seattle, and Christian Science Reading Room"
         - Hillcrest Veterans Square
         - CN Tower
         - University Museum Contemporary Art
@@ -11831,7 +11831,7 @@ pipeline:
         - Dubuque Shot Tower
         - GCU Ballpark
         - The Paul Revere House
-        - "The Ritz-Carlton, Montreal"
+        - The Ritz-Carlton, Montreal"
         - Spruce Knob
         - Bath Covered Bridge
         - Thousand Islands Bridge
@@ -11875,7 +11875,7 @@ pipeline:
         - John F. Kennedy Center for the Performing Arts
         - Santa Prisca de Taxco
         - Birdland Jazz Club
-        - "Fort Amherst, St. John's"
+        - Fort Amherst, St. John's"
         - Dupont Circle
         - Warwick New York
         - Mission San Juan Capistrano
@@ -11910,7 +11910,7 @@ pipeline:
         - Oaxaca Cathedral
         - Angell Park Speedway
         - St George's Anglican Church
-        - "Beauvoir, Jefferson Davis Home and Presidential Library"
+        - Beauvoir, Jefferson Davis Home and Presidential Library"
         - Peace Bridge
         - Yagul
         - Emerald Lake
@@ -12182,7 +12182,7 @@ pipeline:
         - Golden Gate Bridge
         - Washington Monument
         - Half Dome
-        - "Santa María de Guadalupe ""La Concordia"""
+        - Santa María de Guadalupe ""La Concordia"""
         - Navy Pier
         - Times Square
         - Boston's Old City Hall
@@ -12230,14 +12230,14 @@ pipeline:
         - Harry W Nice Memorial Bridge
         - Teton Range
         - Mayslake Peabody Estate
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - York River State Park
         - Garden of the Gods Visitor and Nature Center
         - Greenwood Cemetery
         - Royal Alexandra Theatre
         - Ohio Statehouse
         - Monument to the Revolution
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - Mulkey Cemetery
         - Ronald Reagan Presidential Library
         - John F. Kennedy Center for the Performing Arts
@@ -12253,7 +12253,7 @@ pipeline:
         - Old Quebec
         - Yellowstone National Park
         - Supreme Court of the United States
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Sumidero Canyon
         - El Tajín
         - Pohick Creek
@@ -12285,7 +12285,7 @@ pipeline:
         - Louisbourg Lighthouse
         - Florida Theatre
         - Smithsonian Castle
-        - "Frank C. Erwin, Jr., Special Events Center"
+        - Frank C. Erwin, Jr., Special Events Center"
         - Saints Peter and Paul Catholic Cemetery
         - Granite Park Chalet
         - Fort Point Lighthouse
@@ -12315,7 +12315,7 @@ pipeline:
         - Russell Glacier
         - Goleta Beach Park
         - Mount Rushmore National Memorial
-        - "Kahanu Garden, National Tropical Botanical Garden"
+        - Kahanu Garden, National Tropical Botanical Garden"
         - Firehole River
         - Yosemite National Park
         - Liberty Bay
@@ -12364,8 +12364,8 @@ pipeline:
         - First Horizon Park
         - Westmoreland State Park
         - Lurie Ann & Robert H. Tower
-        - "Capilla del Rosario, Santo Domingo"
-        - "The Biosphere, Environment Museum"
+        - Capilla del Rosario, Santo Domingo"
+        - The Biosphere, Environment Museum"
         - Kauffman Center for the Performing Arts
         - Lake Louise
         - Monument Valley
@@ -12389,7 +12389,7 @@ pipeline:
         - Yosemite Falls
         - Teatro Nacional
         - Mount Moran
-        - Rivers of Steel: Carrie Blast Furnaces National Historic Landmark
+        - Rivers of Steel Carrie Blast Furnaces National Historic Landmark
         - Westmoreland State Park
         - Indian Mound Park
         - The Gateway Arch
@@ -12418,7 +12418,7 @@ pipeline:
         - Haleakalā National Park
         - Johnson No. 28 Covered Bridge
         - Grant Park
-        - Párroco: Pbro. Freddy López Hernández
+        - Párroco Pbro. Freddy López Hernández
         - Parroquia de Basílica Colegiata de Nuestra Señora de Guanajuato
         - Golden Gate Bridge
         - Atwater Market
@@ -12431,7 +12431,7 @@ pipeline:
         - Rideau Hall
         - St. Paul Parish
         - Red Rock Canyon National Conservation Area
-        - "St. Louis Cathedral, Fort-de-France"
+        - St. Louis Cathedral, Fort-de-France"
         - Sierra Norte de Puebla
         - Plaza Tower
         - Parkway Plaza
@@ -12549,7 +12549,7 @@ pipeline:
         - New River Gorge Bridge
         - Kings Canyon National Park
         - Archaeological Site of Yaxchilán
-        - "St. Paul Roman Catholic Church (St. Paul, Oregon)"
+        - St. Paul Roman Catholic Church (St. Paul, Oregon)"
         - Oklahoma State Capitol
         - Union Station
         - The Don CeSar
@@ -12578,7 +12578,7 @@ pipeline:
         - Zabriskie Point
         - The Treasury Building
         - Campana Factory
-        - "San Carlos Borromeo, San Carlos"
+        - San Carlos Borromeo, San Carlos"
         - Îles-de-Boucherville National Park
         - Butt-Millet Memorial Fountain
         - Takakkaw Falls
@@ -12698,7 +12698,7 @@ pipeline:
         - Astoria Center of Israel
         - Knox Mountain Park
         - Ed Koch Queensboro Bridge
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - Williamsburg Bridge
         - Smith Mountain Lake State Park
         - Altitude Montreal
@@ -12745,7 +12745,7 @@ pipeline:
         - Bridge of the Americas
         - Boystown
         - Florida Theatre
-        - "St. Louis Cathedral, Fort-de-France"
+        - St. Louis Cathedral, Fort-de-France"
         - Cañada de la Virgen
         - Corktown
         - Alaska State Capitol
@@ -12803,7 +12803,7 @@ pipeline:
         - Wawa Lake
         - Waterfront Toronto
         - Clearwater Beach
-        - Rivers of Steel: Carrie Blast Furnaces National Historic Landmark
+        - Rivers of Steel Carrie Blast Furnaces National Historic Landmark
         - Lomax AME Zion Church
         - TCL Chinese Theatre
         - Jurassic Forest
@@ -12836,7 +12836,7 @@ pipeline:
         - William V Roth Jr. Bridge
         - Pasadena City Hall
         - Basin and Range National Monument
-        - "Colon Cemetery, Havana"
+        - Colon Cemetery, Havana"
         - Arcos de los Remedios
         - Manzanar
         - Sylva Lake
@@ -12926,7 +12926,7 @@ pipeline:
         - Philadelphia City Hall
         - Soldiers' and Sailors' Monument
         - Pedernales Falls State Park
-        - "Mary, Queen of the World Cathedral"
+        - Mary, Queen of the World Cathedral"
         - Cathedral of Learning
         - Loretto Chapel
         - Carvers Creek State Park
@@ -12962,7 +12962,7 @@ pipeline:
         - The Albuquerque International Balloon Fiesta
         - Key Tower
         - Leesylvania State Park
-        - "Christian Science Church - The Mother Church, The First Church of Christ, Scientist, Boston"
+        - Christian Science Church - The Mother Church, The First Church of Christ, Scientist, Boston"
         - Pied-du-Courant Prison
         - Zabriskie Point
         - Maison Louis-Hippolyte-La Fontaine (Montréal)
@@ -12982,7 +12982,7 @@ pipeline:
         - Monument to the Martyrs of January 9th
         - Landscape Arch
         - Jackson Square
-        - "USS Hornet - Sea, Air and Space Museum"
+        - USS Hornet - Sea, Air and Space Museum"
         - York River State Park
         - Two International Place
         - Oklahoma State Capitol
@@ -13075,13 +13075,13 @@ pipeline:
         - Holy Trinity Russian Orthodox Church
         - Carvers Creek State Park
         - Autzen Stadium
-        - "eXp Realty, LLC.- Portland"
+        - eXp Realty, LLC.- Portland"
         - Templo de Santo Domingo
         - Place Jacques-Cartier
         - Staunton River State Park
         - Roddy Road Covered Bridge
         - Mill Ruins Park
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Navy Pier
         - Vasquez Rocks Natural Area Park
         - Union Square
@@ -13098,7 +13098,7 @@ pipeline:
         - The Terminal Tower Residences
         - Harding Tomb
         - Indian Mound Cemetery
-        - "St. Mark's Cathedral, Tuxtla Gutiérrez"
+        - St. Mark's Cathedral, Tuxtla Gutiérrez"
         - Union Station
         - Flatiron Building
         - Hocking Hills State Park
@@ -13163,7 +13163,7 @@ pipeline:
         - Columbia County High School
         - Double Arch
         - Yosemite Valley
-        - "Mary, Queen of the World Cathedral"
+        - Mary, Queen of the World Cathedral"
         - Casa Feliz Historic Home Museum
         - Falls Park
         - House of the Temple
@@ -13200,13 +13200,13 @@ pipeline:
         - Werner Park
         - University Museum Contemporary Art
         - Adams Morgan
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - Wilson River Bridge
         - Pollard Memorial Library
         - Saint Mary of the Angels School
         - Cabot Tower
         - The Cathedral of Saint Mary of the Immaculate Conception
-        - "St. Louis Cathedral, Fort-de-France"
+        - St. Louis Cathedral, Fort-de-France"
         - San Luis Valley
         - Franklin Delano Roosevelt Memorial
         - White River Entrance
@@ -13272,7 +13272,7 @@ pipeline:
         - Bayview Park
         - Washington Square Arch
         - Meteor Crater Natural Landmark
-        - "Capilla del Rosario, Santo Domingo"
+        - Capilla del Rosario, Santo Domingo"
         - Labna
         - The Alamo
         - Goleta Beach Park
@@ -13354,7 +13354,7 @@ pipeline:
         - Moose Falls
         - The Terminal Tower Residences
         - Hazen Brigade Monument
-        - "Mary, Queen of the World Cathedral"
+        - Mary, Queen of the World Cathedral"
         - Haleakalā National Park
         - Birdland Jazz Club
         - Niagara Falls
@@ -13449,7 +13449,7 @@ pipeline:
         - Basilica Cathedral of Santa María la Menor
         - St Raymond's Catholic Church
         - Lombard Street
-        - "Intrepid Sea, Air & Space Museum"
+        - Intrepid Sea, Air & Space Museum"
         - Catedral Ortodoxa Nuestra Señora de Kazán
         - Séminaire De Québec
         - Emerald Bay State Park
@@ -13601,7 +13601,7 @@ pipeline:
         - Belvedere Castle
         - Henry B. Plant Museum
         - Guadalajara Cathedral
-        - "Stillwater Lift Bridge, Historic Site"
+        - Stillwater Lift Bridge, Historic Site"
         - Banner Peak
         - Los Angeles City Hall
         - Horseshoe Bend
@@ -13611,7 +13611,7 @@ pipeline:
         - King Street Station
         - Parque Nacional Tortuguero
         - Jackson Lake
-        - "Castello di Amorosa - Calistoga, CA"
+        - Castello di Amorosa - Calistoga, CA"
         - St. Louis Cathedral
         - Fisherman's Wharf
         - San Francisco City Hall
@@ -13719,7 +13719,7 @@ pipeline:
         - Salt Lake Temple
         - Library of Parliament
         - Old Town
-        - "LondonHouse Chicago, Curio Collection by Hilton"
+        - LondonHouse Chicago, Curio Collection by Hilton"
         - Paroisse Saint-Viateur-d'Outremont
         - Kaibab Lake
         - Montreal Maison Beaudry
@@ -13740,7 +13740,7 @@ pipeline:
         - Dry Island Buffalo Jump Provincial Park
         - Washington Place
         - Place Jacques-Cartier
-        - "Hotel del Coronado, Curio Collection by Hilton"
+        - Hotel del Coronado, Curio Collection by Hilton"
         - University of Houston
         - MacDougal–Sullivan Gardens Historic District
         - The Church of Jesus Christ of Latter-day Saints - Church Office Building
@@ -13795,7 +13795,7 @@ pipeline:
         - Randyland
         - Ballard (Hiram M. Chittenden) Locks
         - Holy Rood Cemetery
-        - "The Biosphere, Environment Museum"
+        - The Biosphere, Environment Museum"
         - Montreal City Hall
         - Corktown
         - Downsville Covered Bridge
@@ -13847,7 +13847,7 @@ pipeline:
         - Trinity Lutheran Church
         - Pelletier House
         - Desierto de los Leones
-        - "Templo de Santo Domingo, Puebla"
+        - Templo de Santo Domingo, Puebla"
         - Lombard Street
         - Monumento a Goethals
         - Landscape Arch
@@ -13900,7 +13900,7 @@ pipeline:
         - Saint-Nom-de-Marie Church
         - Powhatan State Park
         - Michigan City Lighthouse
-        - "Cathedral of Córdoba, Veracruz"
+        - Cathedral of Córdoba, Veracruz"
         - Place d'Armes
         - La Citadelle de Québec
         - Cathedral of the Most Blessed Sacrament
@@ -13995,7 +13995,7 @@ pipeline:
         - Dells Raceway Park
         - Sailor's Creek Battlefield State Park
         - Mission San Juan Capistrano
-        - "St. Louis Cathedral, Fort-de-France"
+        - St. Louis Cathedral, Fort-de-France"
         - Hungry Mother State Park
         - Mckittrick Canyon
         - Hanauma Bay
@@ -14007,7 +14007,7 @@ pipeline:
         - The Don CeSar
         - Westward Ho Apartments
         - Edwards Run Wildlife Management Area
-        - Boston University: Agganis Arena
+        - Boston University Agganis Arena
         - Lincoln Square Mall
         - Maison Saint-Gabriel
         - Old Fort Jackson
@@ -14094,11 +14094,11 @@ pipeline:
         - Basilica of Our Lady of Zapopan
         - Peggy's Cove Gift Shop Ltd
         - Adams Morgan
-        - "The Westin Bonaventure Hotel & Suites, Los Angeles"
+        - The Westin Bonaventure Hotel & Suites, Los Angeles"
         - 875 North Michigan Avenue
         - UCR ARTS
         - Clinton Street Theater
-        - "Castello di Amorosa - Calistoga, CA"
+        - Castello di Amorosa - Calistoga, CA"
         - Mattamuskeet National Wildlife Refuge Admin Building And Visitor Contact Station
         - The Parthenon
         - Bryant Park
@@ -14118,7 +14118,7 @@ pipeline:
         - Jeanne-Mance Park
         - Church of San Francisco
         - Cathedral Gorge State Park
-        - "Stillwater Lift Bridge, Historic Site"
+        - Stillwater Lift Bridge, Historic Site"
         - Lipstick Building
         - Santa Ana Mountains
         - Islamic Center of Washington DC
@@ -14189,7 +14189,7 @@ pipeline:
         - Little Sable Point Lighthouse
         - The Centre of Tallahassee
         - Hotel Fairmont Château Laurier
-        - "Hildene, The Lincoln Family Home"
+        - Hildene, The Lincoln Family Home"
         - Woodrow Wilson Memorial Bridge
         - Ohio Statehouse
         - Corktown
@@ -14221,7 +14221,7 @@ pipeline:
         - Haleakalā
         - Eau Claire
         - Guadalajara Cathedral
-        - "North Acropolis, Tikal"
+        - North Acropolis, Tikal"
         - Bear Lake
         - Aztec Stadium
         - Bonsecours Market
@@ -14237,7 +14237,7 @@ pipeline:
         - Downtown West
         - Grayson Highlands State Park
         - Basilica of Saint Joseph Proto-Cathedral
-        - "McLean House (Site of Surrender), Appomattox Court House National Historical Park"
+        - McLean House (Site of Surrender), Appomattox Court House National Historical Park"
         - Grayson Highlands State Park
         - Save the Bay
         - Federal Hall

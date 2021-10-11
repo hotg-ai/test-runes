@@ -1,4 +1,4 @@
-version: "1"
+version: 1
 image: runicos/base
 pipeline:
 
@@ -14,7 +14,6 @@ pipeline:
       width: 224
       height: 224
       pixel_format: "@PixelFormat::RGB"
-
   efficientnet:
     model: "./lite-model_efficientnet_lite0_uint8_2.tflite"
     inputs:
@@ -23,26 +22,22 @@ pipeline:
       - type: U8
         dimensions:
           - 1000
-
-  most_confident:
-    proc-block: "hotg-ai/rune#proc_blocks/most_confident_indices"
+  most_confident_index:
+    proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
       - efficientnet
     outputs:
       - type: U32
-        dimensions:
-          - 3
+        dimensions: [3]
     args:
       count: 3
-
   label:
-    proc-block: "hotg-ai/rune#proc_blocks/label"
+    proc-block: "hotg-ai/proc-blocks#label"
     inputs:
-      - most_confident
+      - most_confident_index
     outputs:
       - type: UTF8
-        dimensions:
-          - 3
+        dimensions: [3]
     args:
       labels:
         - tench
@@ -1050,4 +1045,4 @@ pipeline:
     out: SERIAL
     inputs:
       - label
-      - most_confident
+      - most_confident_index

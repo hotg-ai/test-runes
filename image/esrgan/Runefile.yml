@@ -12,7 +12,7 @@ pipeline:
       width: 50
       pixel-format: "@PixelFormat::RGB"
   normalize:
-    proc-block: "hotg-ai/rune#proc-blocks/image-normalization"
+    proc-block: "hotg-ai/proc-blocks#image-normalization"
     inputs:
     - image
     outputs:
