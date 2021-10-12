@@ -25,7 +25,14 @@ pipeline:
     outputs:
       - type: f32
         dimensions: [1,6300,85]
+  object_filter:
+    proc-block: "./object_filter"
+    inputs:
+      - yolo
+    outputs:
+      - type: f32
+        dimensions: [10]
   serial:
     out: SERIAL
     inputs:
-      - yolo
+      - object_filter
