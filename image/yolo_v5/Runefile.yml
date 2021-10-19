@@ -14,10 +14,10 @@ pipeline:
   normalize:
     proc-block: "hotg-ai/proc-blocks#image-normalization"
     inputs:
-    - image
+      - image
     outputs:
-    - type: f32
-      dimensions: [1, 320, 320, 3]
+      - type: f32
+        dimensions: [1, 320, 320, 3]
   yolo:
     model: "./yolo-v5-tflite_tflite_model_1.tflite"
     inputs:

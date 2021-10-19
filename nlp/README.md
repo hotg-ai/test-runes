@@ -1,10 +1,4 @@
-Steps to install `rune`
-
-1. Build [librunecoral](https://github.com/hotg-ai/librunecoral)
-2. Clone rune repo: `git clone https://github.com/hotg-ai/rune.git`
-3. `cd rune`
-4. `cargo install --force --path ./crates/rune-cli`
-
+Install [rune](https://hotg.dev/docs/)
 
 Steps to run `Bert model`:
 1. `git clone https://github.com/hotg-ai/test-runes.git`
@@ -12,7 +6,7 @@ Steps to run `Bert model`:
 3. `git checkout 21b4c6e28afb14bef0a82525222bc53ec55742e4`
 4. `cd nlp/bert`
 5. Download [mobilebert.tflite](https://tfhub.dev/tensorflow/lite-model/mobilebert/1/default/1) (file is above 100Mb so with git clone you will only get the text file)
-6. Generate `bert.rune` with this command: `rune build Runefile.yml --unstable --rune-repo-dir ~/rune`
+6. Generate `bert.rune` with this command: `rune build Runefile.yml`
 
       or 
 
