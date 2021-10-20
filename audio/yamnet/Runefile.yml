@@ -1,5 +1,4 @@
----
-version: "1"
+version: 1
 image: runicos/base
 pipeline:
   audio:
@@ -27,7 +26,7 @@ pipeline:
       - type: F32
         dimensions: [96,64]
   most_confident:
-    proc-block: "hotg-ai/rune#proc_blocks/most_confident_indices"
+    proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
       - yamnet
     outputs:
@@ -37,7 +36,7 @@ pipeline:
     args:
       count: 3
   label:
-    proc-block: "hotg-ai/rune#proc_blocks/label"
+    proc-block: "hotg-ai/proc-blocks#label"
     inputs:
       - most_confident
     outputs:

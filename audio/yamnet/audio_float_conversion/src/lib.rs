@@ -6,13 +6,12 @@ extern crate alloc;
 #[macro_use]
 extern crate std;
 
-pub use hotg_rune_core::{HasOutputs, Tensor};
-use hotg_rune_proc_blocks::{ProcBlock, Transform};
+use hotg_rune_proc_blocks::{ProcBlock, Tensor, Transform};
 
 // TODO: Add Generics
 
 #[derive(Debug, Clone, PartialEq, ProcBlock)]
-#[transform(input = [i16; _], output = [f32; _])]
+#[transform(inputs = [i16; _], outputs = [f32; _])]
 pub struct AudioFloatConversion {
     i16_max_as_float: f32,
 }
@@ -28,34 +27,16 @@ impl AudioFloatConversion {
 }
 
 impl Default for AudioFloatConversion {
-    fn default() -> Self { AudioFloatConversion::new() }
+    fn default() -> Self {
+        AudioFloatConversion::new()
+    }
 }
 
 impl Transform<Tensor<i16>> for AudioFloatConversion {
     type Output = Tensor<f32>;
 
     fn transform(&mut self, input: Tensor<i16>) -> Self::Output {
-        input.map(|_dims, &value| {
-            (value as f32 / I16_MAX_AS_FLOAT).clamp(-1.0, 1.0)
-        })
-    }
-}
-
-impl HasOutputs for AudioFloatConversion {
-    fn set_output_dimensions(&mut self, dimensions: &[usize]) {
-        if dimensions.len() < 2 {
-            if dimensions[0] == 1 || dimensions[1] == 1 {
-                return ()
-            } else {
-                assert_eq!(
-                    dimensions.len(),
-                    1,
-                    "This proc block only supports 1D or Single arrays outputs (requested output: {:?})",
-                    dimensions
-                );
-            }
-          
-        }
+        input.map(|_dims, &value| (value as f32 / I16_MAX_AS_FLOAT).clamp(-1.0, 1.0))
     }
 }
 
