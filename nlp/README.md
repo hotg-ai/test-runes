@@ -1,6 +1,6 @@
-Install [rune](https://hotg.dev/docs/)
+First you have to install the [rune](https://hotg.dev/docs/)
 
-Steps to run `Bert model`:
+After installing rune follow these steps to run `Bert model`:
 1. `git clone https://github.com/hotg-ai/test-runes.git`
 2. `cd test-runes`
 3. `git checkout 21b4c6e28afb14bef0a82525222bc53ec55742e4`
