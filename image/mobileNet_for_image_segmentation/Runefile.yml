@@ -6,10 +6,10 @@ pipeline:
     capability: IMAGE
     outputs:
       - type: u8
-        dimensions: [1,257,257,3]
+        dimensions: [1,513,513,3]
     args:
-      height: 257
-      width: 257
+      height: 513
+      width: 513
       pixel-format: "@PixelFormat::RGB"
   normalize:
     proc-block: "hotg-ai/proc-blocks#image-normalization"
@@ -17,21 +17,21 @@ pipeline:
      - image
     outputs:
       - type: f32
-        dimensions: [1, 257, 257, 3]
+        dimensions: [1, 513, 513, 3]
   deep_lab:
-    model: "./deeplabv3.tflite"
+    model: "./mobilenetv2-dm05-coco_int8_1.tflite"
     inputs:
       - normalize
     outputs:
       - type: f32
-        dimensions: [1,257,257,21]
+        dimensions: [1,513,513,21]
   segmentation_map:
     proc-block: "hotg-ai/proc-blocks#segment_output"
     inputs:
       - deep_lab
     outputs:
       - type: u32
-        dimensions: [257, 257]
+        dimensions: [513, 513]
       - type: u32
         dimensions: [20]
   label:
