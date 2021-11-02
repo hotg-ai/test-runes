@@ -23,8 +23,7 @@ pipeline:
       - bird_detection
     outputs:
       - type: U32
-        dimensions:
-          - 1
+        dimensions: [1]
     args:
       count: 1
   label:

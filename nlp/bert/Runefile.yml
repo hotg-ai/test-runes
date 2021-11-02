@@ -18,7 +18,7 @@ pipeline:
       source: 1
 
   tokenizers:
-    proc-block: "./tokenizers"
+    proc-block: "hotg-ai/proc-blocks#tokenizers"
     inputs:
       - sentence_1
       - sentence_2
@@ -45,7 +45,7 @@ pipeline:
         dimensions: [1,384]   # start_logits 
 
   argmax_end_logit:
-    proc-block: "./argmax"
+    proc-block: "hotg-ai/proc-blocks#argmax"
     inputs:
       - bert.0
     outputs:
@@ -53,7 +53,7 @@ pipeline:
         dimensions: [1]        # will return max value index from end logit
 
   argmax_start_logit:
-    proc-block: "./argmax"
+    proc-block: "hotg-ai/proc-blocks#argmax"
     inputs:
       - bert.1
     outputs:
@@ -61,7 +61,7 @@ pipeline:
         dimensions: [1]        # will return max value index from start logit
 
   text_extractor:
-    proc-block: "./text_extractor"  # will return part of the sentence as utf8 output
+    proc-block: "hotg-ai/proc-blocks#text_extractor"  # will return part of the sentence as utf8 output
     inputs:
       - tokenizers.3            # token
       - argmax_start_logit

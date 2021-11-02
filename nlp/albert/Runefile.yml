@@ -1,0 +1,76 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  sentence_1:
+    capability: RAW
+    outputs:
+      - type: u8
+        dimensions: [1500]
+    args:
+      source: 0
+  sentence_2:
+    capability: RAW
+    outputs:
+      - type: u8
+        dimensions: [1500]  
+    args:
+      source: 1
+
+  tokenizers:
+    proc-block: "hotg-ai/proc-blocks#tokenizers"
+    inputs:
+      - sentence_1
+      - sentence_2
+    outputs:
+      - type: i32
+        dimensions: [1,384]   # token_ids/input_ids  ["101", "3035", ...] -> [S1, S2]
+      - type: i32
+        dimensions: [1,384]   # mask_ids -> [1,1,1,1] -> [len(s1+s2), 0, 0 , 0]
+      - type: i32
+        dimensions: [1,384]   # segments_ids -> [0,0,0,0, .., 1, 1, 1, ... 0000]
+      - type: u8
+        dimensions: [2500]   # tokens -> ["CLS", "Google", , Sunder,, Pichai, ...]
+
+  albert:
+    model: './albert_lite_base_squadv1_1.tflite'
+    inputs:
+      - tokenizers.0  # tokens_ids
+      - tokenizers.1  # mask_ids
+      - tokenizers.2  # segment_ids
+    outputs:
+      - type: f32
+        dimensions: [1,384]   # end_logits
+      - type: f32
+        dimensions: [1,384]   # start_logits 
+
+  argmax_end_logit:
+    proc-block: "hotg-ai/proc-blocks#argmax"
+    inputs:
+      - albert.0
+    outputs:
+      - type: u32
+        dimensions: [1]        # will return max value index from end logit
+
+  argmax_start_logit:
+    proc-block: "hotg-ai/proc-blocks#argmax"
+    inputs:
+      - albert.1
+    outputs:
+      - type: u32
+        dimensions: [1]        # will return max value index from start logit
+
+  text_extractor:
+    proc-block: "./text_extractor"  # will return part of the sentence as utf8 output
+    inputs:
+      - tokenizers.3            # token
+      - argmax_end_logit
+      - argmax_start_logit
+    outputs: 
+      - type: UTF8
+        dimensions: [1]     # output will be variable
+
+  serial:
+    out: serial
+    inputs:
+      - text_extractor

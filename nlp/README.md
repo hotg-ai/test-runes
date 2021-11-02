@@ -3,14 +3,13 @@ First you have to install the [rune](https://hotg.dev/docs/)
 After installing rune follow these steps to run `Bert model`:
 1. `git clone https://github.com/hotg-ai/test-runes.git`
 2. `cd test-runes`
-3. `git checkout 000aa2e63d9baa97ec5d9dc14a595a5686fe14c9`
-4. `cd nlp/bert`
-5. Download [mobilebert.tflite](https://tfhub.dev/tensorflow/lite-model/mobilebert/1/default/1) (file is above 100Mb so with git clone you will only get the text file)
-6. Generate `bert.rune` with this command: `rune build Runefile.yml`
+3. `cd nlp/bert`
+4. Download [mobilebert.tflite](https://tfhub.dev/tensorflow/lite-model/mobilebert/1/default/1) (file is above 100Mb so with git clone you will only get the text file)
+5. Generate `bert.rune` with this command: `rune build Runefile.yml`
 
       or 
 
-  To avoid previous steps (1-6) download `bert.rune` from [here](https://drive.google.com/file/d/18xxcXX9SlNgx9Tc6q2cmL7yF-HymuE9w/view?usp=sharing)
+  To avoid previous steps (1-5) download `bert.rune` from [here](https://drive.google.com/file/d/18xxcXX9SlNgx9Tc6q2cmL7yF-HymuE9w/view?usp=sharing)
 
 
 Steps to Run the model:
