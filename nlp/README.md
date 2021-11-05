@@ -9,7 +9,7 @@ After installing rune follow these steps to run `Bert model`:
 
       or 
 
-  To avoid previous steps (1-5) download `bert.rune` from [here](https://drive.google.com/file/d/18xxcXX9SlNgx9Tc6q2cmL7yF-HymuE9w/view?usp=sharing)
+  To avoid previous steps (1-5) download `bert.rune` from [here](https://raw.githubusercontent.com/hotg-ai/test-runes/master/nlp/bert/bert.rune)
 
 
 Steps to Run the model:
