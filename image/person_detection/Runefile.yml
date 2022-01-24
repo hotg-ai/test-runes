@@ -18,7 +18,7 @@ pipeline:
       - type: U8
         dimensions: [1, 1, 1, 3]
   most_confident_index:
-    proc-block: "hotg-ai/proc-blocks#most_confident_indices"
+    proc-block: "hotg-ai/proc-blocks@v0.11.0#most_confident_indices"
     inputs:
       - person_detection
     outputs:
@@ -27,18 +27,19 @@ pipeline:
     args:
       count: 1
   label:
-    proc-block: "hotg-ai/proc-blocks#label"
+    proc-block: "hotg-ai/proc-blocks@v0.11.0#label"
     inputs:
       - most_confident_index
     outputs:
       - type: UTF8
         dimensions: [1]
     args:
-      labels:
-        - unknown
-        - person_prob
-        - not_person_prob
+      wordlist: |
+        unknown
+        person_prob
+        not_person_prob
   serial:
     out: SERIAL
     inputs:
+      - 
       - label

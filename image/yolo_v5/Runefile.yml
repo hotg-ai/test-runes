@@ -6,7 +6,7 @@ pipeline:
     capability: IMAGE
     outputs:
       - type: u8
-        dimensions: [1,320,320,3]
+        dimensions: [1, 320, 320, 3]
     args:
       height: 320
       width: 320
@@ -24,9 +24,9 @@ pipeline:
       - normalize
     outputs:
       - type: f32
-        dimensions: [1,6300,85]
+        dimensions: [1, 6300, 85]
   object_filter:
-    proc-block: "./object_filter"
+    proc-block: "hotg-ai/proc-blocks#object_filter"
     inputs:
       - yolo
     outputs:

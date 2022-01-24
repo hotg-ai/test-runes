@@ -18,17 +18,19 @@ pipeline:
     outputs:
     - type: f32
       dimensions: [1, 224, 224, 3]
-  model:
-    model: "./mobilenet_v3_large_075_224_classification_5_default_1.tflite"
+  mobileNet:
+    model: "./imagenet_mobilenet_v1_075_128_classification_3_default_1"
+    args:
+      format: tensorflow-js
     inputs:
-      - image
+      - normalized_image
     outputs:
-      - type: u8
+      - type: f32
         dimensions: [1,1001]
   most_confident_index:
     proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
-      - model
+      - mobileNet
     outputs:
       - type: U32
         dimensions: [3]
@@ -1048,3 +1050,4 @@ pipeline:
     out: SERIAL
     inputs:
       - label
+      #- most_confident_index

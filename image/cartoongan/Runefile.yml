@@ -6,7 +6,7 @@ pipeline:
     capability: IMAGE
     outputs:
       - type: u8
-        dimensions: [1,512,512,3]
+        dimensions: [1, 512, 512, 3]
     args:
       height: 512
       width: 512
@@ -14,17 +14,17 @@ pipeline:
   normalize:
     proc-block: "hotg-ai/proc-blocks#image-normalization"
     inputs:
-    - image
+      - image
     outputs:
-    - type: f32
-      dimensions: [1, 512, 512, 3]
+      - type: f32
+        dimensions: [1, 512, 512, 3]
   cartoongan:
     model: "./cartoongan_dr_1.tflite"
     inputs:
       - normalize
     outputs:
       - type: f32
-        dimensions: [1,512,512,3]
+        dimensions: [1, 512, 512, 3]
   serial:
     out: SERIAL
     inputs:
