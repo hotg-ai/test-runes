@@ -1,0 +1,39 @@
+version: 1
+image: runicos/base
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1, 320, 320, 3]
+    args:
+      height: 320
+      width: 320
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/proc-blocks@v0.11.2#image-normalization"
+    inputs:
+      - image
+    outputs:
+      - type: f32
+        dimensions: [1, 320, 320, 3]
+  ssd:
+    model: "./ssd_mobilenet_v2_1_default_1.tar.gz"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1, 6300, 85]
+    args:
+      format: tensorflow-js
+  object_filter:
+    proc-block: "hotg-ai/proc-blocks@v0.11.2#object_filter"
+    inputs:
+      - ssd
+    outputs:
+      - type: f32
+        dimensions: [10]
+  serial:
+    out: SERIAL
+    inputs:
+      - object_filter

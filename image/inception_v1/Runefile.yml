@@ -6,7 +6,7 @@ pipeline:
     capability: IMAGE
     outputs:
       - type: U8
-        dimensions: [1,299,299,3]
+        dimensions: [1, 299, 299, 3]
     args:
       pixel-format: "@PixelFormat::RGB"
       height: 299
@@ -17,7 +17,7 @@ pipeline:
       - image
     outputs:
       - type: U8
-        dimensions: [1,1001]
+        dimensions: [1, 1001]
   most_confident_index:
     proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
@@ -35,7 +35,7 @@ pipeline:
       - type: UTF8
         dimensions: [3]
     args:
-      labels:
+      wordlist: |
         - background
         - tench, Tinca tinca
         - goldfish, Carassius auratus
