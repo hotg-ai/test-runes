@@ -18,7 +18,8 @@ pipeline:
     outputs:
       - type: U8
         dimensions: [1, 1001]
-    format: tensorflow-js
+    args:
+      format: tensorflow-js
   most_confident_index:
     proc-block: "hotg-ai/proc-blocks@v0.11.2#most_confident_indices"
     inputs:

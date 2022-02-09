@@ -6,15 +6,15 @@ pipeline:
     capability: IMAGE
     outputs:
       - type: u8
-        dimensions: [1,257,257,3]
+        dimensions: [1, 257, 257, 3]
     args:
       height: 257
       width: 257
       pixel-format: "@PixelFormat::RGB"
   normalize:
-    proc-block: "hotg-ai/proc-blocks#image-normalization"
+    proc-block: "hotg-ai/proc-blocks@v0.11.2#image-normalization"
     inputs:
-     - image
+      - image
     outputs:
       - type: f32
         dimensions: [1, 257, 257, 3]
@@ -24,9 +24,9 @@ pipeline:
       - normalize
     outputs:
       - type: f32
-        dimensions: [1,257,257,21]
+        dimensions: [1, 257, 257, 21]
   segmentation_map:
-    proc-block: "hotg-ai/proc-blocks#segment_output"
+    proc-block: "hotg-ai/proc-blocks@v0.11.2#segment_output"
     inputs:
       - deep_lab
     outputs:
@@ -35,14 +35,14 @@ pipeline:
       - type: u32
         dimensions: [20]
   label:
-    proc-block: "hotg-ai/proc-blocks#label"
+    proc-block: "hotg-ai/proc-blocks@v0.11.2#label"
     inputs:
       - segmentation_map.1
     outputs:
       - type: Utf8
         dimensions: [20]
     args:
-      labels:
+      wordlist: |
         - background
         - aeroplane
         - bicycle

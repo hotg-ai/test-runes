@@ -41,7 +41,8 @@ pipeline:
         dimensions: [1, 384] # end_logits
       - type: f32
         dimensions: [1, 384] # start_logits
-    format: tensorflow-js
+    args:
+      format: tensorflow-js
   argmax_end_logit:
     proc-block: "hotg-ai/proc-blocks@v0.11.2#argmax"
     inputs:
