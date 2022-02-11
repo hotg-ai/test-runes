@@ -1,0 +1,71 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1, 1025, 2049, 3]
+    args:
+      height: 1025
+      width: 2049
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/proc-blocks@v0.11.2#image-normalization"
+    inputs:
+      - image
+    outputs:
+      - type: f32
+        dimensions: [1, 1025, 2049, 3]
+  deep_lab:
+    model: "./deeplab_cityscapes_1_quantized_2_1.tar.gz"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1, 257, 513, 19]
+    args:
+      format: tensorflow-js
+  segmentation_map:
+    proc-block: "hotg-ai/proc-blocks@v0.11.2#segment_output"
+    inputs:
+      - deep_lab
+    outputs:
+      - type: u32
+        dimensions: [257, 513]
+      - type: u32
+        dimensions: [19]
+  label:
+    proc-block: "hotg-ai/proc-blocks@v0.11.2#label"
+    inputs:
+      - segmentation_map.1
+    outputs:
+      - type: Utf8
+        dimensions: [19]
+    args:
+      wordlist: |
+        road
+        sidewalk
+        building
+        wall
+        fence
+        pole
+        traffic_light
+        traffic_sign
+        vegetation
+        terrain
+        sky
+        person
+        rider
+        car
+        truck
+        bus
+        train
+        motorcycle
+        bicycle
+  serial:
+    out: SERIAL
+    inputs:
+      - label
+      - segmentation_map.0
