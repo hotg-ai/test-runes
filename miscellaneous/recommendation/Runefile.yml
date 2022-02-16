@@ -1,0 +1,49 @@
+image: runicos/base
+version: 1
+
+pipeline:
+  movies_id:
+    capability: RAW
+    outputs:
+      - type: u8
+        dimensions: [100] # ----> keep this dimension a bit larger rune will automatically adjust it.
+  utf8_decode:
+    proc-block: "hotg-ai/proc-blocks#utf8_decode"
+    inputs:
+      - movies_id
+    outputs:
+      - type: utf8
+        dimensions: [10] # ----> keep this dimension a bit larger rune will automatically adjust it.
+  parse:
+    proc-block: "hotg-ai/proc-blocks#parse"
+    inputs:
+      - utf8_decode
+    outputs:
+      - type: i32
+        dimensions: [10]
+  reco:
+    model: "./recommendation.tflite"
+    inputs:
+      - parse
+    outputs:
+      - type: i32
+        dimensions: [100]
+      - type: f32
+        dimensions: [100]
+  label:
+    proc-block: "hotg-ai/proc-blocks#label"
+    inputs:
+      - reco
+    outputs:
+      - type: utf8
+        dimensions: [100]
+    args:
+      wordlist: $label_file
+  serial:
+    out: SERIAL
+    inputs:
+      - label
+resources:
+  label_file:
+    path: "./movies.txt"
+    type: string

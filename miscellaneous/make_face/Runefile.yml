@@ -1,0 +1,39 @@
+version: 1
+image: runicos/base
+pipeline:
+  Sound____bde8fed9_6434_4c20_9ebd_1bcfcd298aac:
+    capability: SOUND
+    outputs:
+      - type: i16
+        dimensions:
+          - 1
+          - 512
+    args:
+      hz: 512
+      sample_duration_ms: 1000
+      source: 0
+  Audio_Float_Conversion____318cea38_9acf_430d_9358_323101985298:
+    proc-block: hotg-ai/proc-blocks#audio_float_conversion
+    inputs:
+      - Sound____bde8fed9_6434_4c20_9ebd_1bcfcd298aac.0
+    outputs:
+      - type: f32
+        dimensions:
+          - 1
+          - 512
+    args: {}
+  Gan____010c5619_1d00_4d8b_901e_467dab245b79:
+    model: "./gan.tflite"
+    inputs:
+      - Audio_Float_Conversion____318cea38_9acf_430d_9358_323101985298.0
+    outputs:
+      - type: f32
+        dimensions:
+          - 1
+          - 128
+          - 128
+          - 3
+  Output____1d4f8031_70ea_4d8c_ad7f_22437fb064bc:
+    out: SERIAL
+    inputs:
+      - Gan____010c5619_1d00_4d8b_901e_467dab245b79.0
