@@ -12,7 +12,7 @@ pipeline:
       height: 299
       width: 299
   model:
-    model: "./recco.tflite"
+    model: "./imagenet_inception_v3_classification_3_default_1.zip"
     inputs:
       - image
     outputs:
