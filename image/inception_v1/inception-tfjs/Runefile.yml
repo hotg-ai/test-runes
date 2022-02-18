@@ -16,7 +16,7 @@ pipeline:
     inputs:
       - image
     outputs:
-      - type: U8
+      - type: f32
         dimensions: [1, 1001]
     args:
       format: tensorflow-js
