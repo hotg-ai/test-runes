@@ -31,7 +31,7 @@ pipeline:
       - type: u8
         dimensions: [2500] # tokens -> ["CLS", "Google", , Sunder,, Pichai, ...]
   bert:
-    model: "./mobilebert_1.tar.gz"
+    model: "./mobilebert.zip"
     inputs:
       - tokenizers.0 # tokens_ids
       - tokenizers.1 # mask_ids

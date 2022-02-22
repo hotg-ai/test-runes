@@ -1,0 +1,72 @@
+version: 1
+image: runicos/base
+pipeline:
+  audio:
+    capability: SOUND
+    outputs:
+      - type: I16
+        dimensions:
+          - 1
+          - 16000
+    args:
+      hz: 16000
+      sample_duration_ms: 1000
+  fft:
+    proc-block: "hotg-ai/proc-blocks@refs/heads/master#fft"
+    inputs:
+      - audio
+    outputs:
+      - type: U32
+        dimensions:
+          - 1
+          - 1960
+  noise_filtering:
+    proc-block: "hotg-ai/proc-blocks@refs/heads/master#noise-filtering"
+    inputs:
+      - fft
+    outputs:
+      - type: I8
+        dimensions:
+          - 1
+          - 1960
+  model:
+    model: "./microspeech-tfjs.zip"
+    args:
+      format: "tensorflow-js"
+    inputs:
+      - noise_filtering
+    outputs:
+      - type: I8
+        dimensions:
+          - 1
+          - 6
+  most_confident:
+    proc-block: "hotg-ai/proc-blocks@refs/heads/master#most_confident_indices"
+    inputs:
+      - model
+    outputs:
+      - type: U32
+        dimensions:
+          - 1
+    args:
+      count: 1
+  label:
+    proc-block: "hotg-ai/proc-blocks@refs/heads/master#label"
+    inputs:
+      - most_confident
+    outputs:
+      - type: UTF8
+        dimensions:
+          - 1
+    args:
+      wordlist: |
+        silence
+        unknown
+        up
+        down
+        left
+        right
+  serial:
+    out: serial
+    inputs:
+      - label

@@ -5,26 +5,26 @@ pipeline:
   image:
     capability: IMAGE
     outputs:
-      - type: u8
-        dimensions: [1, 1025, 2049, 3]
+      - type: i32
+        dimensions: [1, 257, 257, 3]
     args:
-      height: 1025
-      width: 2049
+      height: 257
+      width: 257
       pixel-format: "@PixelFormat::RGB"
-  normalize:
-    proc-block: "hotg-ai/proc-blocks@v0.11.2#image-normalization"
+  # normalize:
+  #   proc-block: "hotg-ai/proc-blocks@v0.11.2#image-normalization"
+  #   inputs:
+  #     - image
+  #   outputs:
+  #     - type: f32
+  #       dimensions: [1, 257, 257, 3]
+  deep_lab:
+    model: "./deeplab_cityscapes_1_quantized_2_1.tar.gz"
     inputs:
       - image
     outputs:
       - type: f32
-        dimensions: [1, 1025, 2049, 3]
-  deep_lab:
-    model: "./deeplab_cityscapes_1_quantized_2_1.tar.gz"
-    inputs:
-      - normalize
-    outputs:
-      - type: f32
-        dimensions: [1, 257, 513, 19]
+        dimensions: [1, 257, 257, 19]
     args:
       format: tensorflow-js
   segmentation_map:
@@ -33,7 +33,7 @@ pipeline:
       - deep_lab
     outputs:
       - type: u32
-        dimensions: [257, 513]
+        dimensions: [257, 257]
       - type: u32
         dimensions: [19]
   label:

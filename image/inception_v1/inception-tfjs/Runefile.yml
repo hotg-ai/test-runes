@@ -11,17 +11,24 @@ pipeline:
       pixel-format: "@PixelFormat::RGB"
       height: 299
       width: 299
-  model:
-    model: "./imagenet_inception_v3_classification_3_default_1.zip"
+  normalized_image:
+    proc-block: "hotg-ai/proc-blocks#image-normalization"
     inputs:
       - image
     outputs:
       - type: f32
-        dimensions: [1, 1001]
+        dimensions: [1, 299, 299, 3]
+  model:
+    model: "./inceptionv3.zip"
     args:
       format: tensorflow-js
+    inputs:
+      - normalized_image
+    outputs:
+      - type: f32
+        dimensions: [1, 1001]
   most_confident_index:
-    proc-block: "hotg-ai/proc-blocks@v0.11.2#most_confident_indices"
+    proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
       - model
     outputs:
@@ -30,7 +37,7 @@ pipeline:
     args:
       count: 3
   label:
-    proc-block: "hotg-ai/proc-blocks@v0.11.2#label"
+    proc-block: "hotg-ai/proc-blocks#label"
     inputs:
       - most_confident_index
     outputs:

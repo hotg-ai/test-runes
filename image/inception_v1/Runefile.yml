@@ -12,7 +12,7 @@ pipeline:
       height: 299
       width: 299
   model:
-    model: "./inception_v3_quant.tflite"
+    model: "./inception_v4_quant.tflite"
     inputs:
       - image
     outputs:
