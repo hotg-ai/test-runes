@@ -1,0 +1,54 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions: [1, 128, 128, 3]
+    args:
+      pixel-format: "@PixelFormat::RGB"
+      height: 128
+      width: 128
+  normalized_image:
+    proc-block: "hotg-ai/proc-blocks#image-normalization"
+    inputs:
+      - image
+    outputs:
+      - type: f32
+        dimensions: [1, 128, 128, 3]
+  model:
+    model: "./blazeface-tfjs.zip"
+    inputs:
+      - normalized_image
+    outputs:
+      - type: f32
+        dimensions: [1, 5]
+    args:
+      format: tensorflow-js
+  # most_confident_index:
+  #   proc-block: "hotg-ai/proc-blocks#most_confident_indices"
+  #   inputs:
+  #     - model
+  #   outputs:
+  #     - type: U32
+  #       dimensions: [1]
+  #   args:
+  #     count: 1
+  # label:
+  #   proc-block: "hotg-ai/proc-blocks#label"
+  #   inputs:
+  #     - most_confident_index
+  #   outputs:
+  #     - type: UTF8
+  #       dimensions: [1]
+  #   args:
+  #     wordlist: |
+  #       up
+  #       down
+  #       unknown
+  serial:
+    out: serial
+    inputs:
+      - model
