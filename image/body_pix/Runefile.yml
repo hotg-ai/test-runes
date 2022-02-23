@@ -1,0 +1,45 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions: [1, 640, 480, 3]
+    args:
+      pixel-format: "@PixelFormat::RGB"
+      height: 640
+      width: 480
+  normalized_image:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#image-normalization"
+    inputs:
+      - image
+    outputs:
+      - type: f32
+        dimensions: [1, 640, 480, 3]
+  model:
+    model: "./bodyPix.tflite"
+    inputs:
+      - normalized_image
+    outputs:
+      - type: f32
+        dimensions: [1, 40, 30, 24]
+      - type: f32
+        dimensions: [1, 40, 30, 48]
+      - type: f32
+        dimensions: [1, 40, 30, 34]
+      - type: f32
+        dimensions: [1, 40, 30, 34]
+      - type: f32
+        dimensions: [1, 40, 30, 17]
+      - type: f32
+        dimensions: [1, 40, 30, 1]
+      - type: f32
+        dimensions: [1, 40, 30, 32]
+      - type: f32
+        dimensions: [1, 40, 30, 32]
+  serial:
+    out: serial
+    inputs:
+      - model.5

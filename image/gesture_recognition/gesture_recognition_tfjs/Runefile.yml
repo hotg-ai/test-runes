@@ -1,0 +1,53 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions: [1, 224, 224, 3]
+    args:
+      pixel-format: "@PixelFormat::RGB"
+      height: 224
+      width: 224
+  normalized_image:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#image-normalization"
+    inputs:
+      - image
+    outputs:
+      - type: f32
+        dimensions: [1, 224, 224, 3]
+  model:
+    model: "./gesture-tfjs-up-down.zip"
+    args:
+      format: tensorflow-js
+    inputs:
+      - normalized_image
+    outputs:
+      - type: f32
+        dimensions: [1, 2]
+  most_confident_index:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#most_confident_indices"
+    inputs:
+      - model
+    outputs:
+      - type: U32
+        dimensions: [1]
+    args:
+      count: 1
+  label:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#label"
+    inputs:
+      - most_confident_index
+    outputs:
+      - type: UTF8
+        dimensions: [1]
+    args:
+      wordlist: |
+        up
+        down
+  serial:
+    out: serial
+    inputs:
+      - label
