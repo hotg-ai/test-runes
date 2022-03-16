@@ -1,0 +1,53 @@
+version: 1
+image: runicos/base
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions: [1, 256, 256, 3]
+    args:
+      pixel-format: "@PixelFormat::RGB"
+      height: 256
+      width: 256
+  image_normalization:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#image-normalization"
+    inputs:
+      - image
+    outputs:
+      - type: f32
+        dimensions: [1, 256, 256, 3]
+  model:
+    model: "./mobilevit_xxs.tflite"
+    inputs:
+      - image_normalization
+    outputs:
+      - type: f32
+        dimensions: [1, 5]
+  most_confident_index:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#most_confident_indices"
+    inputs:
+      - model
+    outputs:
+      - type: U32
+        dimensions: [1]
+    args:
+      count: 1
+  label:
+    proc-block: "hotg-ai/proc-blocks@v0.11.0#label"
+    inputs:
+      - most_confident_index
+    outputs:
+      - type: UTF8
+        dimensions: [1]
+    args:
+      wordlist: |
+        daisy
+        dandelion
+        tulips
+        sunflower
+        roses
+  serial:
+    out: SERIAL
+    inputs:
+      - label
