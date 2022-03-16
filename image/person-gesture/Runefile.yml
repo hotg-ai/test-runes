@@ -1,0 +1,87 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image1:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions: [1, 96, 96, 1]
+    args:
+      pixel-format: "@PixelFormat::GrayScale"
+      height: 96
+      width: 96
+      source: 0
+  image2:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions: [1, 224, 224, 3]
+    args:
+      pixel-format: "@PixelFormat::RGB"
+      height: 224
+      width: 224
+      source: 1
+  normalized_image2:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#image-normalization"
+    inputs:
+      - image2
+    outputs:
+      - type: f32
+        dimensions: [1, 224, 224, 3]
+  person_detection:
+    model: "./model.tflite"
+    inputs:
+      - image1
+    outputs:
+      - type: U8
+        dimensions: [1, 1, 1, 3]
+  most_confident_index1:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#most_confident_indices"
+    inputs:
+      - person_detection
+    outputs:
+      - type: U32
+        dimensions: [1]
+    args:
+      count: 1
+  model:
+    model: "./gesture-up-down.tflite"
+    inputs:
+      - normalized_image2
+    outputs:
+      - type: f32
+        dimensions: [1, 2]
+  most_confident_index2:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#most_confident_indices"
+    inputs:
+      - model
+    outputs:
+      - type: U32
+        dimensions: [1]
+    args:
+      count: 1
+  control_node:
+    proc-block: "./control_logic"
+    inputs:
+      - most_confident_index1
+      - most_confident_index2
+    outputs:
+      - type: u32
+        dimensions: [1]
+  label:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#label"
+    inputs:
+      - control_node
+    outputs:
+      - type: UTF8
+        dimensions: [1]
+    args:
+      wordlist: |
+        up
+        down
+        unknown
+  serial:
+    out: serial
+    inputs:
+      - label
