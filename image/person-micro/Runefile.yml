@@ -1,0 +1,107 @@
+version: 1
+image: runicos/base
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions: [1, 96, 96, 1]
+    args:
+      pixel-format: "@PixelFormat::GrayScale"
+      height: 96
+      width: 96
+    source: 0
+  person_detection:
+    model: "./person.tflite"
+    inputs:
+      - image
+    outputs:
+      - type: U8
+        dimensions: [1, 1, 1, 3]
+  most_confident_index1:
+    proc-block: "hotg-ai/proc-blocks@v0.11.0#most_confident_indices"
+    inputs:
+      - person_detection
+    outputs:
+      - type: U32
+        dimensions: [1]
+    args:
+      count: 1
+  audio:
+    capability: SOUND
+    outputs:
+      - type: I16
+        dimensions:
+          - 1
+          - 16000
+    args:
+      hz: 16000
+      sample_duration_ms: 1000
+      source: 0
+  fft:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#fft"
+    inputs:
+      - audio
+    outputs:
+      - type: U32
+        dimensions:
+          - 1
+          - 1960
+  noise_filtering:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#noise-filtering"
+    inputs:
+      - fft
+    outputs:
+      - type: I8
+        dimensions:
+          - 1
+          - 1960
+  model:
+    model: "./model.tflite"
+    inputs:
+      - noise_filtering
+    outputs:
+      - type: I8
+        dimensions:
+          - 1
+          - 6
+  most_confident_index2:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#most_confident_indices"
+    inputs:
+      - model
+    outputs:
+      - type: U32
+        dimensions:
+          - 1
+    args:
+      count: 1
+  control_node:
+    proc-block: "./control_logic"
+    inputs:
+      - most_confident_index1
+      - most_confident_index2
+    outputs:
+      - type: u32
+        dimensions: [1]
+  label:
+    proc-block: "hotg-ai/proc-blocks@v0.11.3#label"
+    inputs:
+      - control_node
+    outputs:
+      - type: UTF8
+        dimensions:
+          - 1
+    args:
+      wordlist: |
+        silence
+        unknown
+        up
+        down
+        left
+        right
+        there_is_no_person
+  serial:
+    out: serial
+    inputs:
+      - label
+      - most_confident_index1
