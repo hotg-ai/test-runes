@@ -1,0 +1,23 @@
+version: 1
+image: runicos/base
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: U8
+        dimensions: [1, 224, 224, 3]
+    args:
+      pixel-format: "@PixelFormat::RGB"
+      height: 224
+      width: 224
+  image_normalization:
+    proc-block: "/Users/mohit/Documents/hotg/proc-blocks/normalize"
+    inputs:
+      - image
+    outputs:
+      - type: f32
+        dimensions: [1, 224, 224, 3]
+  serial:
+    out: SERIAL
+    inputs:
+      - image_normalization

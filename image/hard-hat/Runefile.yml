@@ -1,0 +1,38 @@
+version: 1
+image: runicos/base
+
+pipeline:
+  image:
+    capability: IMAGE
+    outputs:
+      - type: u8
+        dimensions: [1, 640, 640, 3]
+    args:
+      height: 640
+      width: 640
+      pixel-format: "@PixelFormat::RGB"
+  normalize:
+    proc-block: "hotg-ai/proc-blocks#image-normalization"
+    inputs:
+      - image
+    outputs:
+      - type: f32
+        dimensions: [1, 640, 640, 3]
+  yolo:
+    model: "./hard-hat-50-epochs.tflite"
+    inputs:
+      - normalize
+    outputs:
+      - type: f32
+        dimensions: [1, 25200, 8]
+  object_filter:
+    proc-block: "hotg-ai/proc-blocks#object_filter"
+    inputs:
+      - yolo
+    outputs:
+      - type: f32
+        dimensions: [10]
+  serial:
+    out: SERIAL
+    inputs:
+      - object_filter

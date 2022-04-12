@@ -5,26 +5,26 @@ pipeline:
     capability: SOUND
     outputs:
       - type: I16
-        dimensions: [1,15600]
+        dimensions: [1, 15600]
     args:
       hz: 16000
       sample_duration_ms: 975
   audio_float:
-    proc-block: "./audio_float_conversion"
+    proc-block: "hotg-ai/proc-blocks#audio_float_conversion"
     inputs:
       - audio
     outputs:
       - type: F32
-        dimensions: [1,15600]
+        dimensions: [1, 15600]
   yamnet:
     model: "./yamnet.tflite"
     inputs:
       - audio_float
     outputs:
       - type: F32
-        dimensions: [1,521]
+        dimensions: [1, 521]
       - type: F32
-        dimensions: [96,64]
+        dimensions: [96, 64]
   most_confident:
     proc-block: "hotg-ai/proc-blocks#most_confident_indices"
     inputs:
@@ -43,7 +43,7 @@ pipeline:
       - type: UTF8
         dimensions: [3]
     args:
-      labels: 
+      wordlist: |
         - Speech
         - Child speech, kid speaking
         - Conversation
