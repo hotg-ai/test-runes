@@ -10,19 +10,21 @@ pipeline:
       hz: 16000
       sample_duration_ms: 975
   audio_float:
-    proc-block: "hotg-ai/proc-blocks#audio_float_conversion"
+    proc-block: "hotg-ai/proc-blocks@0.12.0#audio_float_conversion"
     inputs:
       - audio
     outputs:
       - type: F32
         dimensions: [1, 15600]
   yamnet:
-    model: "./yamnet.tflite"
+    model: "./lite-model_yamnet_tflite_1.tflite"
     inputs:
       - audio_float
     outputs:
       - type: F32
         dimensions: [1, 521]
+      - type: F32
+        dimensions: [1, 1024]
       - type: F32
         dimensions: [96, 64]
   most_confident:

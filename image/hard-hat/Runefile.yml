@@ -19,7 +19,7 @@ pipeline:
       - type: f32
         dimensions: [1, 640, 640, 3]
   yolo:
-    model: "./hard-hat-50-epochs.tflite"
+    model: "./hard-hat.tflite"
     inputs:
       - normalize
     outputs:
